@@ -1,11 +1,8 @@
 import config
 from flask_restplus import Api
-from api.v3.api import api as v3_api
+from api.v3.api import api as api_v3
 
-
-CONFIG = config.FLASK
-
-api = Api(version=CONFIG['version'], title=CONFIG['title'], description=CONFIG['desc'])
+api = Api(version=config.Flask.version, title=config.Flask.title, description=config.Flask.desc)
 
 # version-3
-api.add_namespace(v3_api)
+api.add_namespace(api_v3)
