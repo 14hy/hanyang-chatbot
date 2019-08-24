@@ -40,8 +40,9 @@ WORKDIR /python-mecab-ko
 RUN pip3 install -r requirements.txt && python3 setup.py build && python3 setup.py install
 
 # Python package 설치
-COPY . /app
-WORKDIR /app
+COPY ./requirements.txt /
+WORKDIR /
 RUN pip3 install -r requirements.txt
 
-#ENTRYPOINT ["python3", "app.py"]
+WORKDIR /app
+ENTRYPOINT ["python3"]
