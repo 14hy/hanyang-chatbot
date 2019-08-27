@@ -9,6 +9,8 @@ class Logger(object):
     # DEBUG - INFO - WARN - ERROR - CRITICAL
     level = "INFO"
 
+class test(object):
+    pass
 
 class DataBase(object):
     host = 'localhost'
