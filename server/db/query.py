@@ -1,11 +1,19 @@
-from mongoengine import *
+from sqlalchemy import Column, Integer, String, DateTime
+from db.database import Base
 from datetime import datetime
+from utils import KST
 
 
-class Query(Document):
-    query = StringField(required=True, max_length=50)
-    answer = LazyReferenceField(document_type='Answer', reverse_delete_rule=1)  # NULLIFY
-    confidence = FloatField(min_value=0.0, max_value=100.0, required=True)
-    added_time = DateField(required=True, default=datetime.utcnow)
+class Query(Base):
+    """사용자 질문
+    """
+    __tablename__ = 'query'
+    id = Column('id', Integer, primary_key=True)
+    query = Column('query', String(50), nullable=False)
+    added_time = Column('added_time', DateTime(timezone=True), nullable=False, default=datetime.now(tz=KST))
 
-    meta = {'collection': 'Query'}
+    def __init__(self):
+        pass
+
+    def __repr__(self):
+        return None
