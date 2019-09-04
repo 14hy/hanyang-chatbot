@@ -3,6 +3,7 @@ https://github.com/google-research/bert
 tokenization.py 전처리 코드 포함
 """
 import unicodedata
+from utils import *
 
 
 def _is_punctuation(char):
@@ -55,9 +56,20 @@ def whitespace_tokenize(text):
 
 
 # TODO Lemmatization
-
+@basic_timer
+@basic_logger
 def clean(text, token=False):
-    # 형태소
+    """전처리 함수
+
+    1. 컨트롤 문자
+    2. 구두 문자
+    3. 빈칸
+
+    :param str text:
+    :param bool token:
+
+    :return:
+    """
 
     output = []
     for char in text:

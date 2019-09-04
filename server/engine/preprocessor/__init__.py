@@ -1,1 +1,1 @@
-__all__ = ['clean', 'morph', 'tokenize', 'n_gram']
+__all__ = ['clean', 'tokenize', 'n_gram']

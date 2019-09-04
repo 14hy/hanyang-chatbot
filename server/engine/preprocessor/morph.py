@@ -1,8 +1,9 @@
-from khaiii import KhaiiiApi
-from mecab import MeCab
-
-KA = KhaiiiApi()
-MA = MeCab()
+# from khaiii import KhaiiiApi
+# from mecab import MeCab
+# from utils import basic_logger, basic_timer
+#
+# KA = KhaiiiApi()
+# MA = MeCab()
 
 dict_khaiii = {}
 
@@ -15,8 +16,18 @@ class Text(object):
         self.tags = tags
         self.orig = orig
 
+    def __repr__(self):
+        return f'<Text object, morphs: {self.morphs}, tags: {self.tags}, orig: {self.orig}'
 
+
+@basic_timer
+@basic_logger
 def analyze(text):
+    """형태소 분석
+
+    :param str text:
+    :return:
+    """
     morphs = []
     tags = {}
 

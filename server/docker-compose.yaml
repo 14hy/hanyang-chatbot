@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  server:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    working_dir: /app
+    entrypoint:
+      - python3
+    command:
+      - app.py
+
+  db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - /mnt/postgres-chatbot:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "27017:5432"

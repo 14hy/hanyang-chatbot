@@ -39,10 +39,12 @@ RUN git clone https://github.com/jonghwanhyeon/python-mecab-ko
 WORKDIR /python-mecab-ko
 RUN pip3 install -r requirements.txt && python3 setup.py build && python3 setup.py install
 
+# Psycopg2 dependencies
+RUN apt-get install -y libpq-dev
+
+ENV PYTHONUNBUFFERED=0
+
 # Python package 설치
 COPY ./requirements.txt /
 WORKDIR /
 RUN pip3 install -r requirements.txt
-
-WORKDIR /app
-ENTRYPOINT ["python3"]

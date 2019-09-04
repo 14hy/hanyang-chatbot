@@ -7,15 +7,15 @@ import logging
 
 class Logger(object):
     # DEBUG - INFO - WARN - ERROR - CRITICAL
-    level = "INFO"
+    level = "DEBUG"
 
 
 class DataBase(object):
-    host = 'localhost'
+    host = '35.236.158.57'
     port = 27017
-    username = 'mhlee'
-    password = 'mhlee'
-    db_name = 'chatbot'
+    username = 'postgres'
+    password = 'password'
+    db_name = 'postgres'
 
 
 class Flask(object):
