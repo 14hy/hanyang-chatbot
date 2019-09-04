@@ -7,8 +7,12 @@ class Basic(object):
 
     # FLASK
     host = '0.0.0.0'
-    port = 8000
+    port = 8001
     debug = True
     version = 0.1
-    title = 'hanyang-chatbot-dev'
-    desc = 'development version'
+    title = 'hanyang-chatbot-api'
+    desc = '2019 SW 학술대회 챗봇 빌더 API 서버'
+
+    # FireStore
+    project_id = 'cool-benefit-185923'
+    serviceAccount = 'cool-benefit-185923.json'
