@@ -1,4 +1,4 @@
-from app import logger
+from main import logger
 from functools import wraps
 from typing import Callable
 from time import time

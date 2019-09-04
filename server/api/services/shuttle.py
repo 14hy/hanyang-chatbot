@@ -1,5 +1,5 @@
 from flask_restplus import Resource, Namespace, fields
-from app import logger
+from main import logger
 from engine.services.shuttle import ShuttleBus
 
 shuttle_bus = ShuttleBus()
@@ -29,5 +29,3 @@ class Bus(Resource):
     @ns_shuttle.doc('현재 시각을 기준으로 셔틀버스를 조회합니다.')
     def get(self):
         return shuttle_bus.response()
-
-    pass

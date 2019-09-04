@@ -1,8 +1,9 @@
 from flask_restplus import Resource, Namespace, Api
 import config
 from engine.main import Chatbot
-from app import logger
-from engine.preprocessor.morph import analyze
+from main import logger
+
+# from engine.preprocessor.morph import analyze
 
 chatbot = Chatbot()
 ns = Namespace(name='', description='Restful API')
@@ -15,12 +16,4 @@ class Index(Resource):
     def get(self, text):
         logger.info(text)
 
-        return analyze(text)
-
-
-api = Api(version=config.Flask.version, title=config.Flask.title, description=config.Flask.desc)
-
-from .services.shuttle import ns_shuttle
-
-api.add_namespace(ns)
-api.add_namespace(ns_shuttle)
+        return chatbot.get_response(text)

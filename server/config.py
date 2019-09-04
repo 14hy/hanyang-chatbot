@@ -1,24 +1,11 @@
-import os
-import logging
-
-
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-class Logger(object):
+class Basic(object):
     # DEBUG - INFO - WARN - ERROR - CRITICAL
     level = "DEBUG"
 
-
-class DataBase(object):
-    host = '35.236.158.57'
-    port = 27017
-    username = 'postgres'
-    password = 'password'
-    db_name = 'postgres'
-
-
-class Flask(object):
+    # FLASK
     host = '0.0.0.0'
     port = 8000
     debug = True
