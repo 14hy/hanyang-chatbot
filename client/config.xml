@@ -2,10 +2,10 @@
 <widget id="hanyang.chatbot.com" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>하냥한양봇</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        한양대학교 ERICA 캠퍼스 챗봇 도우미
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+        TAEUK.KANG
     </author>
     <content src="index.html" />
     <access origin="*" />
