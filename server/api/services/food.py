@@ -17,4 +17,4 @@ class Bus(Resource):
 
         if hasattr(Restaurants, restaurant):
             return get_recipe(Restaurants[restaurant])
-        return 400
+        return None, 400

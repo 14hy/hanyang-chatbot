@@ -4,6 +4,7 @@ from lxml.html import fromstring
 from lxml.cssselect import CSSSelector
 from utils import *
 
+
 class Restaurants(Enum):
     교직원식당 = '11'
     학생식당 = '12'
