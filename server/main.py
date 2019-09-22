@@ -1,11 +1,13 @@
 from flask import Flask
 from config import Basic
 from logging import Logger
+from flask_cors import CORS
 from api import api
 
 _CONF = Basic
 
 app = Flask(__name__)
+CORS(app)
 
 logger: Logger = app.logger
 logger.setLevel(Basic.level)
