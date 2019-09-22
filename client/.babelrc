@@ -1,0 +1,14 @@
+{
+    "presets": [
+        ["@babel/preset-env", {
+                "targets": {
+                    "ie": 11
+                },
+                "modules": false
+        }]
+    ],
+    "plugins": [
+        ["@babel/plugin-transform-new-target"],
+        ["@babel/plugin-transform-classes"]
+    ]
+}
