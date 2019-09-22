@@ -45,7 +45,7 @@ export class PageMain extends LitElement {
 				<btn-list></btn-list>
 				<div class="chat-input">
 					<input type="text" id="inputText" class='text-send' placeholder='메세지를 입력해주세요' @change=${this.enterTextSend}></textarea>					
-					<button class='btn-send'><i class="f7-icons size-32">arrow_right</i></button>
+					<button class='btn-send' @click=${this.clickSend}><i class="f7-icons size-32">arrow_right</i></button>
 				</div>
 			</footer>
 		</div>
@@ -71,7 +71,18 @@ export class PageMain extends LitElement {
 			say(`my`, event.target.value)
 			event.target.value = ``
 		}
-	}    
+	}
+    
+	get clickSend() {
+		return {
+			handleEvent() {				
+				const inputText = document.querySelector(`#inputText`)
+				say(`my`, inputText.value)
+				inputText.value = `` 
+			},
+			capture: true,
+		}
+	}
 }
 
 customElements.define(`page-main`, PageMain)
