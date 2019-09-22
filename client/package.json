@@ -6,7 +6,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --hot",
-    "production": "./node_modules/.bin/webpack -p --optimize-minimize && npm run auto-css",
+    "production": "./node_modules/.bin/webpack -p --optimize-minimize",
     "bundle": "./node_modules/.bin/webpack --hide-modules --colors --mode=none",
     "watch": "./node_modules/.bin/webpack --hide-modules --colors --mode=none --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 9001 -s ./www",
@@ -25,6 +25,7 @@
   "dependencies": {
     "cordova-android": "^8.0.0",
     "cordova-ios": "^5.0.1",
+    "cordova-plugin-splashscreen": "^5.0.3",
     "eslint": "^6.3.0",
     "eslint-loader": "^3.0.0",
     "eslint-plugin-import": "^2.18.2",
@@ -78,7 +79,8 @@
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-splashscreen": {}
     },
     "platforms": [
       "android",
