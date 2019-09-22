@@ -32,12 +32,16 @@
   z-index: 6000;
 }
 
+* {
+  font-family: 'Noto-sans';
+}
+
 *::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 
 @font-face {
-  font-family: Jua;
-  src: url(../fonts/Jua.woff);
+  font-family: Noto-sans;
+  src: url(../fonts/NotoSansKR-Regular.woff);
 }

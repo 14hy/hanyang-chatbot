@@ -30,21 +30,12 @@ if (document.location.search.indexOf(`theme=`) >= 0) {
 // Init App
 window.app = new Framework7({
 	id: `com.example.mac.tour`,
-	name: `하냥이`,
+	name: `하냥한얏봇`,
 	root: `#root`,
 	theme: theme,
 	routes: routes,
 	touch: {
 		fastClicks: true,
-	},
-	smartSelect: {
-		setValueText: true,
-		openIn: `popup`,
-		closeOnSelect: true,
-	},
-	popover: {
-		backdrop: false,
-		animate: true,
 	},
 })
 
