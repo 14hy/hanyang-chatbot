@@ -14,7 +14,8 @@
     "lint": "eslint ./src/",
     "auto-css": "./node_modules/.bin/postcss ./www/css/*.css -r postcss.config.js",
     "test-detail": "npm run bundle && npm run lint && wct -p --npm",
-    "test": "wct -l chrome --npm"
+    "test": "wct -l chrome --npm",
+    "android": "npm run production && cordova run android"
   },
   "keywords": [
     "ecosystem:cordova"

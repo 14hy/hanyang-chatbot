@@ -30,8 +30,8 @@ if (document.location.search.indexOf(`theme=`) >= 0) {
 // Init App
 window.app = new Framework7({
 	id: `com.example.mac.tour`,
-	name: `맥투`,
-	root: `#app`,
+	name: `하냥이`,
+	root: `#root`,
 	theme: theme,
 	routes: routes,
 	touch: {

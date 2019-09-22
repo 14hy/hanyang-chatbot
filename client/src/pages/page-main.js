@@ -21,7 +21,7 @@ export class PageMain extends LitElement {
 
 	render() {
 		return html`
-		<div id="pageMain">
+		<div id="pageMain" class="page-content">
 			<header>				
 				<div class="logo">Logo</div>
 				<div class="title">Title</div>

@@ -272,5 +272,6 @@ module.exports = {
     "globals": {
         "chrome": true,
         "firebase": true,
+        "Framework7": true
     }
 };

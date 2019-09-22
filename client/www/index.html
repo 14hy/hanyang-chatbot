@@ -8,6 +8,12 @@
         <meta charset="UTF-8"/>
         <title>My project template</title>
         
+        <link rel="stylesheet" href="css/framework7.bundle.min.css">
+        <link rel="stylesheet" href="css/icons.css">    
+        <link rel="stylesheet" href="css/app.css">  
+        
+        <script defer src="js/framework7.bundle.min.js"></script>
+        <script defer src="js/app.js"></script>
         <script defer src="cordova.js"></script>
         <script defer src="js/polyfill.min.js"></script>
         <script defer src="js/webcomponents-sd-ce-pf.js"></script>
@@ -16,7 +22,10 @@
     </head>
     <body>
         <div id="root">
-            <app-loading></app-loading>
+            <div class="statusbar"></div>
+            <div class="view view-main safe-areas">        
+                <page-main class="page"></page-main>
+            </div>
         </div>        
     </body>
 </html>
