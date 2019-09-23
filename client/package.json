@@ -1,0 +1,92 @@
+{
+  "name": "hanyang.chatbot.com",
+  "displayName": "hanyang-chatbot",
+  "version": "1.0.0",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "./node_modules/.bin/webpack-dev-server --hot",
+    "production": "./node_modules/.bin/webpack -p --optimize-minimize",
+    "bundle": "./node_modules/.bin/webpack --hide-modules --colors --mode=none",
+    "watch": "./node_modules/.bin/webpack --hide-modules --colors --mode=none --watch",
+    "storybook": "./node_modules/.bin/start-storybook -p 9001 -s ./www",
+    "build-storybook": "./node_modules/.bin/build-storybook",
+    "lint": "eslint ./src/",
+    "auto-css": "./node_modules/.bin/postcss ./www/css/*.css -r postcss.config.js",
+    "test-detail": "npm run bundle && npm run lint && wct -p --npm",
+    "test": "wct -l chrome --npm",
+    "android": "npm run production && cordova run android"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "TaeUk.Kang",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cordova-android": "^8.0.0",
+    "cordova-ios": "^5.0.1",
+    "cordova-plugin-splashscreen": "^5.0.3",
+    "eslint": "^6.3.0",
+    "eslint-loader": "^3.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "format": "^0.2.2",
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.2",
+    "postcss": "^7.0.18",
+    "postcss-cli": "^6.1.3",
+    "proxy-polyfill": "^0.3.0",
+    "redux-zero": "^5.0.5",
+    "typescript": "^3.6.2",
+    "url-loader": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-transform-new-target": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.6.0",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/register": "^7.6.0",
+    "@babel/runtime": "^7.6.0",
+    "@storybook/html": "^5.1.11",
+    "@storybook/polymer": "^5.1.11",
+    "@webcomponents/shadycss": "^1.9.1",
+    "@webcomponents/webcomponentsjs": "^2.2.10",
+    "astroturf": "^0.9.16",
+    "babel-loader": "^8.0.6",
+    "chai": "^4.2.0",
+    "clang-format": "^1.2.4",
+    "cordova-plugin-whitelist": "^1.3.4",
+    "css-loader": "^3.2.0",
+    "jsdom": "15.1.1",
+    "jsdom-global": "3.0.2",
+    "lit-html-benchmarks": "^0.2.1",
+    "mini-css-extract-plugin": "^0.8.0",
+    "mocha": "^6.2.0",
+    "polymer-webpack-loader": "^2.0.3",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.0.0",
+    "wct-mocha": "^1.0.1",
+    "web-component-tester": "^6.9.2",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanyang-chatbot/hanyang-chatbot.git"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-splashscreen": {}
+    },
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "optionalDependencies": {
+    "fsevents": "^1.2.7"
+  }
+}
