@@ -51,12 +51,16 @@ class FoodList extends LitElement {
     
 	foodByTime(index) {
 		return html`
-        ${[`조식`, `중식`, `석식`].map(each => 
+        ${[`분식`, `조식`, `중식`, `석식`, `중식/석식`].map(each => 
 		this.mealData[index][each] 
 			? html`
-                <div class="meal-time">${each}</div>
-                <p class="menu">${this.mealData[index][each][0][`menu`]}</p>
-                <p class="price">특식 ${this.mealData[index][each][0][`price`]}원</p>`
+            <div class="meal-time">${each}</div>
+
+            ${this.mealData[index][each].map(menu => html`
+            <p class="menu">${menu[`menu`]}</p>
+            <p class="price">특식 ${menu[`price`]}원</p>
+            `)}            
+            `
 			: html``
 	)}
         `
@@ -133,8 +137,7 @@ food-list .list .item-content.item-link {
 food-list .meal-time {
     font-weight: bold;
     font-size: 12px;
-    color: #ffaa00;    
-    margin-bottom: 5px;
+    color: #ffaa00;        
 }
 
 food-list .meal-time:not(:first-child) {
@@ -145,6 +148,7 @@ food-list .menu {
     margin: 0;
     font-size: 11px;
     color: #818181;
+    margin-top: 5px;
 }
 
 food-list .price {
