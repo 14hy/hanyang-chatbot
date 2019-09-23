@@ -138,7 +138,9 @@ main {
     grid-template-columns: 1fr;
     grid-auto-rows: min-content;
     width: 100%;
-    height: 100%;
+    height: auto;
+
+	margin-bottom: 20px;
 }
 
 footer {
