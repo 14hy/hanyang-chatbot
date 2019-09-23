@@ -97,9 +97,9 @@ class ShuttleBus(object):
                                  minutes=NOW.minute,
                                  seconds=NOW.second)
         season = self.check_season(current_time)
-        weekend = self.check_weekend()
-        # table = self.get_table(season, weekend)
-        table = self.make_table(0, 0)
+        weekend = self.check_weekend(NOW)
+        table = self.make_table(season, weekend)
+
         response = self.create_response(table, current_time)
 
         return response
@@ -137,15 +137,18 @@ class ShuttleBus(object):
         :param time:
         :return:
         '''
-        pass
+        # TODO 구현
+        return 0
 
-    def check_weekend(self):
+    def check_weekend(self, now):
         '''
         월~금/ 주말, 공휴일 인지
         :return:
         '''
-
-        return 0
+        if now.weekday() >= 5:
+            return 1
+        else:
+            return 0
 
     @staticmethod
     def create_time(hours, minutes=0):
