@@ -28,7 +28,8 @@ class BtnList extends LitElement {
 
 	get clickFood() {
 		return {
-			handleEvent() {				
+			handleEvent() {	
+				say(`my`, `학식 메뉴 알려줘~`)			
 				say(`bot`, `<food-list></food-list>`, `school-food`)
 			},
 			capture: true,
