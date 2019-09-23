@@ -77,6 +77,11 @@ export class PageMain extends LitElement {
 		return {
 			handleEvent() {				
 				const inputText = document.querySelector(`#inputText`)
+
+				if (inputText.value.trim() === ``) {
+					return 
+				}
+
 				say(`my`, inputText.value)
 				inputText.value = `` 
 			},
