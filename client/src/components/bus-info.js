@@ -22,14 +22,27 @@ class BusInfo extends LitElement {
 		`
 	}
     
-	clickBusInfoOut(event) {
+	show() {
 		const btn = document.querySelector(`.btn-shuttle`)
-		if (event.target.closest(`bus-info`) || event.target.closest(`.btn-shuttle`)) {
-			return
-		}		
+
+		this.classList.add(`active`)
+		btn.classList.add(`active`)
+		document.addEventListener(`click`, this._handlers.onClickBusInfoOut)
+	}
+    
+	hide() {
+		const btn = document.querySelector(`.btn-shuttle`)
+
 		this.classList.remove(`active`)
 		btn.classList.remove(`active`)
 		document.removeEventListener(`click`, this._handlers.onClickBusInfoOut)
+	}
+    
+	clickBusInfoOut(event) {
+		if (event.target.closest(`bus-info`) || event.target.closest(`.btn-shuttle`)) {
+			return
+		}		
+		this.hide()
 	}
 }
 

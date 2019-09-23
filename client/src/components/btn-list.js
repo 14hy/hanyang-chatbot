@@ -43,13 +43,10 @@ class BtnList extends LitElement {
 				const busInfo = root.querySelector(`bus-info`)
 				const btn = event.target
 				if (btn.classList.contains(`active`)) {
-					busInfo.classList.remove(`active`)
-					btn.classList.remove(`active`)
+					busInfo.hide()
 					return
-				}		
-				busInfo.classList.add(`active`)
-				btn.classList.add(`active`)
-				document.addEventListener(`click`, busInfo._handlers.onClickBusInfoOut)
+				}						
+				busInfo.show()
 			},
 			capture: true,
 		}
