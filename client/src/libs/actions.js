@@ -56,3 +56,25 @@ export const loadXhr = obj => new Promise((resolve, reject) => {
 	}
 	req.send(obj.body || null)
 })
+
+export const waitSend = actionCreator((state, callback) => {
+	const main = document.querySelector(`main`)
+	const observer = new MutationObserver(mutations => {
+		mutations.forEach(async mutation => {						
+			if (mutation[`addedNodes`][0][`localName`] === `my-chat-balloon`) {
+				let text = await mutation[`addedNodes`][0]
+				text = text.querySelector(`.chat-content`).textContent.split(`오후`)[0].split(`오전`)[0]
+				callback(text)
+			}			
+			observer.disconnect()
+		})
+	})
+
+	const config = {
+		childList: true,
+		subtree: true || null,
+	}
+	observer.observe(main, config)
+
+	return state
+})

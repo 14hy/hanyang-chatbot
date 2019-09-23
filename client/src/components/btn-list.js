@@ -1,13 +1,14 @@
 import { LitElement, html } from 'lit-element'
 
-import { say } from '../libs/actions.js'
+import { say, waitSend } from '../libs/actions.js'
 
 import '../components/food-list.js'
 import '../components/bus-info.js'
+import '../components/book-info.js'
 
 class BtnList extends LitElement {	
 	constructor() {
-		super()
+		super()		
 	}
     
 	createRenderRoot() {
@@ -20,10 +21,23 @@ class BtnList extends LitElement {
 			<ul id="btnList">
 				<bus-info></bus-info>
                 <button class="btn-food col button button-raised button" @click=${this.clickFood}>학식</button>
-                <button class="btn-book col button button-raised button">도서</button>
+                <button class="btn-book col button button-raised button" @click=${this.clickBook}>도서</button>
                 <button class="btn-shuttle col button button-raised button" @click=${this.clickBusInfo}>셔틀</button>
 			</ul>
 		`
+	}
+
+	get clickBook() {
+		return {
+			async handleEvent() {	
+				await say(`my`, `도서관 검색해줘`)			
+				await say(`bot`, `학술정보관에서 검색해줄게.<br/><strong>'책 이름'</strong>을 입력해줘~`)
+				waitSend(text => {
+					say(`bot`, `<book-info searchText="${text}"></book-info>`)
+				})				
+			},
+			capture: true,
+		}
 	}
 
 	get clickFood() {
