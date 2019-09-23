@@ -4,8 +4,10 @@ import { scrollToLast } from '../libs/actions.js'
 class BotChatBalloon extends LitElement {	
 	constructor() {
 		super()
+	}
 
-		this.text = `TEST`
+	createRenderRoot() {
+		return this
 	}
 
 	render() {
@@ -24,31 +26,22 @@ class BotChatBalloon extends LitElement {
 		`
 	}
 
-	chat(text, config) {
-		const NO_CHAT = 0
-		const isNoChat = this.shadowRoot.querySelector(`.chat-wrap`).childElementCount === NO_CHAT
+	chat(text, _class = `chat-content`) {
+		const isNoChat = this.querySelector(`.chat-wrap`).childElementCount === 0
 
 		if(isNoChat) {
-			this.newChat(text, config)
+			this.makeChatBallon(text, _class)
 			return
 		}
 
-		this.continueChat(text, config)
+		this.makeChatBallon(text, `${_class}-continue`)
 	}
 
-	newChat(text) {
+	async makeChatBallon(text, _class=`chat-content`) {
 		const div = document.createElement(`div`)
-		div.classList.add(`chat-content`)
+		div.classList.add(_class)
 		div.innerHTML = text
-		this.shadowRoot.querySelector(`.chat-wrap`).appendChild(div)
-		scrollToLast()
-	}
-
-	continueChat(text) {
-		const div = document.createElement(`div`)
-		div.classList.add(`chat-content-continue`)
-		div.innerHTML = text
-		this.shadowRoot.querySelector(`.chat-wrap`).appendChild(div)
+		await this.querySelector(`.chat-wrap`).appendChild(div)
 		scrollToLast()
 	}
 }
@@ -128,11 +121,11 @@ bot-chat-balloon {
 	animation: slide 0.3s ease-out;			
 }
 
-.chat-content {
+.bot-chat .chat-content {
 	border-radius: 2px 15px 15px 16px;
 }
 
-.chat-content-continue {
+.bot-chat .chat-content-continue {
 	border-radius: 10px 15px 15px 15px;
 }
 
@@ -143,10 +136,16 @@ bot-chat-balloon {
 @keyframes slide {
 	0% {
 		left: -100%;
+		opacity: 0;
+	}
+
+	75% {
+		opacity: 0;
 	}
 
 	100% {
 		left: 0%;
+		opacity: 1;
 	}
 }
 </style>

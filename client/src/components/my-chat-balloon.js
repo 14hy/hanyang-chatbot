@@ -6,56 +6,46 @@ class MyChatBalloon extends LitElement {
 	constructor() {
 		super()
 	}
-
-	chat(text) {
-		const isNoChat = this.shadowRoot.querySelector(`.chat-wrap`).childElementCount === 0
-
-		if(isNoChat) {
-			this.newChat(text)
-			return
-		}
-
-		this.continueChat(text)
-	}
-
-	newChat(text) {
-		const div = document.createElement(`div`)		
-		div.classList.add(`chat-content`)
-		div.innerHTML = text
-
-		const time = document.createElement(`span`)
-		time.classList.add(`chat-time`)
-		time.textContent = this.getTime
-
-		div.appendChild(time)
-		this.shadowRoot.querySelector(`.chat-wrap`).appendChild(div)
-		scrollToLast()
-	}
-
-	continueChat(text) {
-		const div = document.createElement(`div`)
-		div.classList.add(`chat-content-continue`)
-		div.innerHTML = text
-
-		const time = document.createElement(`span`)
-		time.classList.add(`chat-time`)
-		time.textContent = this.getTime
-
-		div.appendChild(time)
-		this.shadowRoot.querySelector(`.chat-wrap`).appendChild(div)
-		scrollToLast()
-	}
+	
+	createRenderRoot() {
+		return this
+	}	
 
 	render() {
 		return html`
 			${style}
-			<main>
+			<div class="my-chat">
 				<div class='chat-wrap'>
 					<!-- <div class='chat-content'>TEST</div> -->
 					<!-- <div class='chat-content-continue'>TEST</div> -->
 				</div>
-			</main>
+			</div>
 		`
+	}
+
+	chat(text, _class = `chat-content`) {
+		const isNoChat = this.querySelector(`.chat-wrap`).childElementCount === 0
+
+		if(isNoChat) {
+			this.makeChatBallon(text, _class)
+			return
+		}
+
+		this.makeChatBallon(text, `${_class}-continue`)
+	}
+
+	makeChatBallon(text, _class = `chat-content`) {
+		const div = document.createElement(`div`)		
+		div.classList.add(_class)
+		div.innerHTML = text
+
+		const time = document.createElement(`span`)
+		time.classList.add(`chat-time`)
+		time.textContent = this.getTime
+
+		div.appendChild(time)
+		this.querySelector(`.chat-wrap`).appendChild(div)
+		scrollToLast()
 	}
 
 	get getTime() {
@@ -72,7 +62,7 @@ customElements.define(`my-chat-balloon`, MyChatBalloon)
 
 const style = html`
 <style>
-main {
+.my-chat {
 	width: 100%;
 	display: grid;
 	grid-template-rows: 1fr;
@@ -82,7 +72,7 @@ main {
 	float: right;
 }	
 
-.chat-wrap {
+.my-chat .chat-wrap {
 	padding-top: 5px;
 	padding-bottom: 5px;
 	z-index: 5;
@@ -92,7 +82,7 @@ main {
 	grid-row-gap: 5px;
 }
 
-.chat-content, .chat-content-continue {
+.my-chat .chat-content, .my-chat .chat-content-continue {
 	display: inline-block;
 	position: relative;
 	min-height: 28px;
@@ -115,15 +105,15 @@ main {
 	animation: slide 0.3s ease-out;
 }
 
-.chat-content {
+.my-chat .chat-content {
 	border-radius: 15px 2px 16px 15px;
 }
 
-.chat-content-continue {
+.my-chat .chat-content-continue {
 	border-radius: 15px 10px 15px 15px;
 }
 
-.chat-time {
+.my-chat .chat-time {
 	position: absolute;
     bottom: 0px;
     left: -50px;
@@ -138,10 +128,16 @@ main {
 @keyframes slide {
 	0% {
 		right: -100%;
+		opacity: 0;
+	}
+
+	75% {
+		opacity: 0;
 	}
 
 	100% {
 		right: 0%;
+		opacity: 1;
 	}
 }
 </style>

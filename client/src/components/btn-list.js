@@ -2,6 +2,8 @@ import { LitElement, html } from 'lit-element'
 
 import { say } from '../libs/actions.js'
 
+import '../components/food-list.js'
+
 class BtnList extends LitElement {	
 	constructor() {
 		super()
@@ -13,7 +15,6 @@ class BtnList extends LitElement {
 
 	render() {
 		return html`
-            <link rel="stylesheet" href="css/framework7.bundle.min.css">
 			${style}
 			<ul id="btnList">
                 <button class="btn-food col button button-raised button" @click=${this.clickFood}>학식</button>
@@ -26,7 +27,7 @@ class BtnList extends LitElement {
 	get clickFood() {
 		return {
 			handleEvent() {				
-				say(`bot`, `어디에서 학식을 먹고 싶냥?`)
+				say(`bot`, `<food-list></food-list>`, `school-food`)
 			},
 			capture: true,
 		}
