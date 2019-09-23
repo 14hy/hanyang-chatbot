@@ -89,6 +89,10 @@ customElements.define(`page-main`, PageMain)
 
 const style = html`
 <style>
+.view {
+	z-index: 100;
+}
+
 #pageMain {
     border: 1px solid #595959;
     width: 100vw;
@@ -141,11 +145,16 @@ main {
     height: auto;
 
 	margin-bottom: 20px;
+
+	position: relative;
+    z-index: -5;
 }
 
 footer {
     display: grid;
 	grid-template-rows: 40px 50px;	    
+
+	background-color: white;
 }
 
 .chat-input {

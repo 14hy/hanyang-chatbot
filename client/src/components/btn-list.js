@@ -3,6 +3,7 @@ import { LitElement, html } from 'lit-element'
 import { say } from '../libs/actions.js'
 
 import '../components/food-list.js'
+import '../components/bus-info.js'
 
 class BtnList extends LitElement {	
 	constructor() {
@@ -17,9 +18,10 @@ class BtnList extends LitElement {
 		return html`
 			${style}
 			<ul id="btnList">
+				<bus-info></bus-info>
                 <button class="btn-food col button button-raised button" @click=${this.clickFood}>학식</button>
                 <button class="btn-book col button button-raised button">도서</button>
-                <button class="btn-shuttle col button button-raised button">셔틀</button>
+                <button class="btn-shuttle col button button-raised button" @click=${this.clickBusInfo}>셔틀</button>
 			</ul>
 		`
 	}
@@ -28,6 +30,26 @@ class BtnList extends LitElement {
 		return {
 			handleEvent() {				
 				say(`bot`, `<food-list></food-list>`, `school-food`)
+			},
+			capture: true,
+		}
+	}
+
+
+	get clickBusInfo() {
+		const root = this
+		return {
+			handleEvent(event) {
+				const busInfo = root.querySelector(`bus-info`)
+				const btn = event.target
+				if (btn.classList.contains(`active`)) {
+					busInfo.classList.remove(`active`)
+					btn.classList.remove(`active`)
+					return
+				}		
+				busInfo.classList.add(`active`)
+				btn.classList.add(`active`)
+				document.addEventListener(`click`, busInfo._handlers.onClickBusInfoOut)
 			},
 			capture: true,
 		}
@@ -44,12 +66,21 @@ const style = html`
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    height: 40px;    
+	height: 40px;    
+	
+	position: relative;
 }
 
 #btnList button {
-    color: #2699fb;
+	color: #2699fb;
+	background-color: white;
     box-shadow: 0 -3px 10px 0 rgba(0, 0, 0, 0.16);
+}
+
+#btnList button.active {
+	background-color: #24609f;
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 0;
 }
 </style>
 `
