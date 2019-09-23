@@ -129,9 +129,13 @@ food-list .accordion-list .item-link .item-inner:after {
     display: none;
 }
 
+food-list .accordion-item-content {
+    transition-duration: 100ms;
+}
+
 food-list .list .item-content.item-link {
     min-height: 40px;
-    height: 40px;
+    height: 40px;    
 }
 
 food-list .meal-time {
