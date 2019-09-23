@@ -41,6 +41,15 @@
   height: 0;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
 @font-face {
   font-family: Noto-sans;
   src: url(../fonts/NotoSansKR-Regular.woff);
