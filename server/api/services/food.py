@@ -1,18 +1,16 @@
 from lib.flask_restplus import Resource, Namespace, fields, reqparse
 from engine.services.food import get_recipe, Restaurants
 from datetime import datetime
-from threading import Thread
 from utils import KST, logger
 
 ns_food = Namespace('service/food', description='Service/food')
 
 cache = {}
-pool = []
 
 
 def _is_corrupted(time: datetime) -> bool:
     now = datetime.now(tz=KST)
-    if now.minute - time.minute > 60 or now.day != time.day:
+    if now.minute - time.minute > 15 or now.day != time.day:
         return True
     return False
 
@@ -40,11 +38,7 @@ class Bus(Resource):
         if not hasattr(Restaurants, restaurant):
             return None, 400
 
-        if not restaurant in cache:
+        if not restaurant in cache or _is_corrupted(cache['time']):
             _refresh(restaurant)
-
-        if _is_corrupted(cache['time']):
-            pool.append(Thread(target=_refresh, args=[restaurant]))
-            pool[-1].start()
 
         return cache[restaurant]
