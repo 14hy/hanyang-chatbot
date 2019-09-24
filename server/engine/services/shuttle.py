@@ -7,16 +7,71 @@ class Table(enum.Enum):
     # 0: 학기 중, 1: 계절학기, 2: 방학 중
     # 0: 월~금, 1: 휴일
     # 0: 순환, 1: 한대앞역, 2: 예술인
-    학기중_월금_순환노선 = [[5, 3, 1], [6, 5, 2]]
-    학기중_월금_예술인 = [[0, 2, 0]]
-    학기중_월금_한대앞 = [[2, 0, 3], [4, 1, 3]]  # 0,0,2
-    학기중_휴일_순환노선 = [[3, 4, 3]]  # 0,1,0
-    계절_월금_순환노선 = [[5, 4, 2]]  # 1,0,0
-    계절_월금_예술인 = [[1, 2, 0]]  # 1,0,1
-    계절_월금_한대앞 = [[1, 0, 3], [4, 1, 3]]  # 1,0,2
-    계절_휴일_순환노선 = [[3, 4, 3]]  # 1,0,0
-    방학_월금_순환노선 = [[1, 4, 3]]  # 2,0,0
-    방학_휴일_순환노선 = [[3, 4, 4]]  # 2,1,0
+
+    # 2019.09.25 업데이
+
+    학기중_월금_순환노선 = [
+        [0, 0, 0],  # 0750~0750 1회
+        [4, 9, 4],  # 1300~1530 30분간격
+        [8, 5, 4],  # 1800~1900 30분간격
+        [5, 10, 2],  # 1900~2130 10분간격
+        [10, 11, 3]  # 2130~2300 15분간
+    ]
+    학기중_월금_예술인 = [
+        [2, 12, 4],  # 0820~1220 30분간격
+        [13, 14, 4]  # 1600~1730 30분간격
+    ]
+    학기중_월금_한대앞 = [
+        [1, 2, 1],  # 0800~0820 5분간격
+        [2, 7, 0],  # 0820~0850 3분간격
+        [7, 15, 1],  # 0850~0920 5분간격
+        [15, 16, 0],  # 0920~0950 3분간격
+        [16, 17, 1],  # 0950~1030 5분간격
+        [17, 18, 2],  # 1030~1100 10분간격
+        [18, 19, 3],  # 1100~1200 15분간격
+        [19, 12, 2],  # 1200~1220 10분간격
+        [12, 20, 1],  # 1220~1230 5분간격
+        [20, 21, 2],  # 1230~1250 10분간격
+        [22, 23, 4],  # 1315~1445 30분간격
+        [24, 25, 2],  # 1510~1520 10분간격
+        [26, 27, 2],  # 1540~1600 10분간격
+        [27, 28, 5],  # 1600~1754 6분간격
+        [29, 30, 5],  # 1806~1824 6분간격
+        [31, 32, 2],  # 1840~1850 10분간격
+    ]  # 0,0,2
+    학기중_휴일_순환노선 = [
+        [7, 33, 4]  # 0850~2150 30분간격
+    ]
+    계절_월금_순환노선 = [
+        [1, 1, 0],  # 0800~0800 1회
+        [4, 9, 4],  # 1300~1530 30분간격
+        [8, 5, 4],  # 1800~1900 30분간격
+        [5, 34, 2],  # 1900~2200 10분간격
+    ]  # 1,0,0
+    계절_월금_예술인 = [
+        [2, 12, 4],  # 0820~1220 30분간격
+        [13, 14, 4]  # 1600~1730 30분간격
+    ]  # 1,0,1
+    계절_월금_한대앞 = [
+        [35, 3, 1],  # 0810~0900 5분간격
+        [3, 21, 2],  # 0900~1250 10분간격
+        [36, 37, 2],  # 1310~1320 10분간격
+        [38, 39, 2],  # 1340~1350 10분간격
+        [40, 41, 2],  # 1410~1420 10분간격
+        [24, 25, 2],  # 1510~1520 10분간격
+        [26, 42, 2],  # 1540~1750 10분간격
+        [43, 44, 2],  # 1810~1820 10분간격
+        [31, 32, 2],  # 1840~1850 10분간격
+    ]  # 1,0,2
+    계절_휴일_순환노선 = [
+        [7, 45, 4]  # 0850~2150 30분간격
+    ]  # 1,0,0
+    방학_월금_순환노선 = [
+        [0, 34, 4]  # 0750~2150 30분간격
+    ]
+    방학_휴일_순환노선 = [
+        [7, 34, 4]  # 0850~2150 30분간
+    ]  # 2,1,0
 
 
 class ShuttleBus(object):
@@ -43,20 +98,65 @@ class ShuttleBus(object):
     # 시작시간, 끝나는 시간, 시즌, 휴일, 노선에 따라 차등 적용
 
     def __init__(self):
-        self.start_time = [self.create_timedelta(50, 7), self.create_timedelta(0, 8),  # 0, 1
-                           self.create_timedelta(20, 8), self.create_timedelta(0, 9),  # 2, 3
-                           self.create_timedelta(0, 13), self.create_timedelta(0, 19),  # 4, 5
-                           self.create_timedelta(45, 21)]  # 6
-        self.end_time = [self.create_timedelta(20, 12), self.create_timedelta(30, 18),  # 0, 1
-                         self.create_timedelta(50, 18), self.create_timedelta(30, 21),  # 2, 3
-                         self.create_timedelta(0, 22), self.create_timedelta(0, 23)]  # 4, 5
-        self.interval = [self.create_timedelta(5, 0), self.create_timedelta(10, 0),  # 0, 1
-                         self.create_timedelta(15, 0), self.create_timedelta(30, 0),  # 2, 3
-                         self.create_timedelta(0, 1)]  # 4
+        self.start_time = [self.create_timedelta(50, 7),  # 0, 0750
+                           self.create_timedelta(0, 8),  # 1, 0800
+                           self.create_timedelta(20, 8),  # 2 0820
+                           self.create_timedelta(0, 9),  # 3 0900
+                           self.create_timedelta(0, 13),  # 4 1300
+                           self.create_timedelta(0, 19),  # 5 1900
+                           self.create_timedelta(45, 21),  # 6 2145
+                           self.create_timedelta(50, 8),  # 7 0850
+                           self.create_timedelta(0, 18),  # 8 1800
+                           self.create_timedelta(30, 15),  # 9 1530
+                           self.create_timedelta(30, 21),  # 10 2130
+                           self.create_timedelta(0, 23),  # 11 2300
+                           self.create_timedelta(20, 12),  # 12 1220
+                           self.create_timedelta(0, 16),  # 13 1600
+                           self.create_timedelta(30, 17),  # 14 1730
+                           self.create_timedelta(20, 9),  # 15 0920
+                           self.create_timedelta(50, 9),  # 16 0950
+                           self.create_timedelta(30, 10),  # 17 1030
+                           self.create_timedelta(0, 11),  # 18 1100
+                           self.create_timedelta(0, 12),  # 19 1200
+                           self.create_timedelta(30, 12),  # 20 1230
+                           self.create_timedelta(50, 12),  # 21 1250
+                           self.create_timedelta(15, 13),  # 22 1315
+                           self.create_timedelta(45, 14),  # 23 1445
+                           self.create_timedelta(10, 15),  # 24 1510
+                           self.create_timedelta(20, 15),  # 25 1520
+                           self.create_timedelta(40, 15),  # 26 1540
+                           self.create_timedelta(0, 16),  # 27 1600
+                           self.create_timedelta(54, 17),  # 28 1754
+                           self.create_timedelta(6, 18),  # 29 1806
+                           self.create_timedelta(24, 18),  # 30 1824
+                           self.create_timedelta(40, 18),  # 31 1840
+                           self.create_timedelta(50, 18),  # 32 1850
+                           self.create_timedelta(50, 21),  # 33 2150
+                           self.create_timedelta(0, 22),  # 34 2150
+                           self.create_timedelta(10, 8),  # 35 0810
+                           self.create_timedelta(10, 13),  # 36 1310
+                           self.create_timedelta(20, 13),  # 37 1320
+                           self.create_timedelta(40, 13),  # 38 1340
+                           self.create_timedelta(50, 13),  # 39 1350
+                           self.create_timedelta(10, 14),  # 40 1410
+                           self.create_timedelta(20, 14),  # 41 1420
+                           self.create_timedelta(50, 17),  # 42 1750
+                           self.create_timedelta(50, 17),  # 43 1810
+                           self.create_timedelta(50, 17),  # 44 1820
+                           self.create_timedelta(50, 21),  # 45 2150
+                           ]
+        #  2019.09.25 변경
+        self.end_time = self.start_time
+        self.interval = [self.create_timedelta(3, 0),  # 0, 3분간격
+                         self.create_timedelta(5, 0),  # 1, 5분간격
+                         self.create_timedelta(10, 0),  # 2, 10분간격
+                         self.create_timedelta(15, 0),  # 3, 15분간격
+                         self.create_timedelta(30, 0),  # 4, 30분간격
+                         self.create_timedelta(6, 0)]  # 5, 6분간격
 
-        self.recipe = [[[Table.학기중_월금_순환노선.value, Table.학기중_월금_예술인.value, Table.학기중_월금_한대앞.value],
+        self.recipe = [[[Table.학기중_월금_순환노선.value, Table.학기중_월금_한대앞.value, Table.학기중_월금_예술인.value],
                         [Table.학기중_휴일_순환노선.value]],
-                       [[Table.계절_월금_순환노선.value, Table.계절_월금_예술인.value, Table.계절_월금_한대앞.value],
+                       [[Table.계절_월금_순환노선.value, Table.계절_월금_한대앞.value, Table.계절_월금_예술인.value],
                         [Table.계절_휴일_순환노선.value]], [[Table.방학_월금_순환노선.value], [Table.방학_휴일_순환노선.value]]]
 
     def make_table(self, season, weekend):
@@ -113,20 +213,24 @@ class ShuttleBus(object):
         current_time = timedelta(hours=NOW.hour,
                                  minutes=NOW.minute,
                                  seconds=NOW.second)
-        if season == 'semester':
+        if season == '학기중':
             season = 0
-        elif season == 'between':
+        elif season == '계절학기':
             season = 1
-        elif season == 'vacation':
+        elif season == '방학중':
             season = 2
         else:
-            raise Exception('season must be semester or between or vacation')
+            raise Exception('season must be 학기중 or 계절학기 or 방학중')
 
-        if not weekend:
+        if weekend == '평일':
             weekend = 0
-        else:
+        elif weekend == '주말':
             weekend = 1
+        else:
+            raise Exception('weekend must be 평일 or 주말')
+
         table = self.make_table(season, weekend)
+        from pprint import pprint
         response = self.create_response(table, current_time)
 
         return response
@@ -195,10 +299,13 @@ class ShuttleBus(object):
         output["shuttle_cycle"] = self.get_output(shuttle1_cycle)
         output["shuttle_station"] = self.get_output(shuttle1_station)
         output["shuttle_artin"] = self.get_output(shuttle1_artin)
-        output["station"] = self.get_output(self.close_bus(station_cycle, station_station))
-        output["station_artin"] = self.get_output(self.close_bus(station_artin, station_cycle))
-        output["artin"] = self.get_output(self.close_bus(artin_cycle, artin_artin))
-        output["shuttle_dorm"] = self.get_output(self.close_bus(shuttle2_station, shuttle2_cycle, shuttle2_artin))
+        output["station_cycle"] = self.get_output(station_cycle)
+        output["station_station"] = self.get_output(station_station)
+        output["artin_artin"] = self.get_output(artin_artin)
+        output["artin_cycle"] = self.get_output(artin_cycle)
+        output["shuttle_cycle2"] = self.get_output(shuttle2_cycle)
+        output["shuttle_artin2"] = self.get_output(shuttle2_artin)
+        output["shuttle_station2"] = self.get_output(shuttle2_station)
         return output
 
     def get_output(self, close_time):
