@@ -108,27 +108,28 @@ const style = html`
     overflow: hidden;
 
     display: grid;
-    grid-template-rows: 120px auto 90px;
+    grid-template-rows: 10vh auto 90px;
 }
 
 header {
     display: grid;
-    grid-template-rows: 90px 30px;
+    grid-template-rows: 8vh 2vh;
 }
 
 header > h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
-    margin-top: 40px;
+    height: 5vh;
+    margin-top: 3vh;
     margin-bottom: 0;
     
     font-family: 'Noto-sans';
     font-size: 16px;
     font-weight: bold;
     background-color: #f3f3f3;
-    color: #c2c2c2;
+	color: #c2c2c2;
+	user-select: none;
 }
 
 header > .date {
@@ -149,8 +150,6 @@ main {
     grid-auto-rows: min-content;
     width: 100%;
     height: auto;
-
-	margin-bottom: 20px;
 
 	position: relative;
     z-index: 0;
@@ -177,9 +176,8 @@ footer {
     resize: none;
     margin: 5px;
     font-size: 16px;
-    font-family: 'Noto-sans';
-
-    padding-top: 5px;
+	font-family: 'Noto-sans';
+	
     padding-left: 20px;
 }
 

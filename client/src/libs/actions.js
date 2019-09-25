@@ -30,7 +30,7 @@ export const say = actionCreator(async (state, talker , text, _class) => {
 export const scrollToLast = actionCreator(state => {
 	const main = document.querySelector(`main`)
 
-	main.scrollTop = main.scrollHeight
+	main.scrollTo(0, main.scrollHeight)
 
 	return state
 })
