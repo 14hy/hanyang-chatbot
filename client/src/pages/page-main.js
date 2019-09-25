@@ -100,8 +100,8 @@ const style = html`
 
 #pageMain {
     border: 1px solid #595959;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     padding: 0;
     border-radius: 2px;
@@ -141,7 +141,8 @@ header > .date {
 }
 
 main {
-    overflow: scroll;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
 
     display: grid;
     grid-template-columns: 1fr;

@@ -1,5 +1,5 @@
 const path = require(`path`)
-const MiniCssExtractPlugin = require(`mini-css-extract-plugin`)
+// const BundleAnalyzerPlugin = require(`webpack-bundle-analyzer`).BundleAnalyzerPlugin
 
 module.exports = {
 	entry: {
@@ -10,7 +10,7 @@ module.exports = {
 		filename: `[name].js`,
 	},
 	plugins: [
-		new MiniCssExtractPlugin({ filename: `css/style.css` }),
+		// new BundleAnalyzerPlugin(),
 	],
 	module: {
 		rules: [
@@ -33,7 +33,6 @@ module.exports = {
 				test: /\.(css|scss)$/,
 				exclude: /node_modules/,
 				use: [
-					MiniCssExtractPlugin.loader, 
 					/* `style-loader`, */ 
 					`css-loader`, 
 					`sass-loader?outputStyle=expanded`,

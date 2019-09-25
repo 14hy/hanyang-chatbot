@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com https://lib.hanyang.ac.kr ; style-src 'self' 'unsafe-inline'; media-src none; img-src *;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <meta charset="UTF-8"/>
-        <title>하냥한양봇</title>
-        
-        <link rel="stylesheet" href="css/framework7.bundle.min.css">
-        <link rel="stylesheet" href="css/icons.css">    
-        <link rel="stylesheet" href="css/app.css">  
-        
-        <script defer src="js/framework7.bundle.min.js"></script>
-        <script defer src="js/app.js"></script>
-        <script defer src="cordova.js"></script>
-        <script defer src="js/polyfill.min.js"></script>
-        <script defer src="js/webcomponents-sd-ce-pf.js"></script>
-        <script defer src="js/custom-elements-es5-adapter.js"></script>    
-        <script defer src="main-bundle.js"></script>
-    </head>
-    <body>
-        <div id="root">
-            <div class="statusbar"></div>
-            <div class="view view-main safe-areas">        
-                <page-main class="page"></page-main>
-            </div>
-        </div>        
-    </body>
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com https://lib.hanyang.ac.kr ; style-src 'self' 'unsafe-inline'; media-src none; img-src *;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta charset="UTF-8"/>
+    <title>하냥한양봇</title>
+    
+    <link rel="stylesheet" href="css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="css/icons.css">    
+    <link rel="stylesheet" href="css/app.css"> 
+    
+    <link rel=“preload” href=“/fonts/NotoSansKR-Regular.woff” as=“font”>
+</head>
+<body>
+    <div id="root">
+        <div class="statusbar"></div>
+        <div class="view view-main safe-areas">        
+            <page-main class="page"></page-main>
+        </div>
+    </div>        
+
+    <script defer src="js/framework7.bundle.min.js"></script>
+    <script defer src="js/app.js"></script>
+    <script defer src="cordova.js"></script>
+    <script defer src="js/polyfill.min.js"></script>
+    <script defer src="js/custom-elements-es5-adapter.js"></script>    
+    <script defer src="js/webcomponents-sd-ce-pf.js"></script>    
+    <script defer src="main-bundle.js"></script>
+</body>
 </html>

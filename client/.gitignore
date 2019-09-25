@@ -13,6 +13,8 @@ platforms/
 plugins/
 *.keystore
 
+stat.html
+
 # build
 dist/
 zip/
