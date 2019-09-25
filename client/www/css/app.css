@@ -50,19 +50,6 @@ li {
   list-style: none;
 }
 
-.loading-wrap {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-}
-
-.loading {  
-  border: 0;
-  width: 100%;
-  object-fit: contain;
-}
-
 @font-face {
   font-family: Noto-sans;
   src: url(../fonts/NotoSansKR-Regular.woff);
