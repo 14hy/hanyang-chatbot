@@ -43,7 +43,7 @@ class BookInfo extends LitElement {
         ${this.noBookMessage}
         ${this.title.map((book, index) => html`
         <div class="book-list">
-            <div class='image-wrap'><img class='book-image' src='${this.imageSrc[index]}' /></div>
+            <div class='image-wrap'><img class='book-image' src='${this.imageSrc[index]}' alt="NO_IMAGE"/></div>
             <div class='info'>
                 <div class='title'>${book}</div>
                 <div class='author'>${this.author[index]}</div>
@@ -68,11 +68,11 @@ class BookInfo extends LitElement {
 			return 
 		}
 
-		for (let i=0; i <3; i++) {
+		for (let i=0; i <20; i++) {
 			this.title = [...this.title, res[`data`][`list`][i][`titleStatement`]]
 			this.author = [...this.author, res[`data`][`list`][i][`author`]]
 			this.publication = [...this.publication, res[`data`][`list`][i][`publication`]]
-			this.imageSrc = [...this.imageSrc, res[`data`][`list`][i][`thumbnailUrl`]]
+			this.imageSrc = [...this.imageSrc, res[`data`][`list`][i][`thumbnailUrl`] || `https://information.hanyang.ac.kr/assets/images/hy/sub/default-item-img.png`]
 			this.isCheckout = [...this.isCheckout, res[`data`][`list`][i][`branchVolumes`]
 				.find(each => each.name.indexOf(`ERICA`))[`cState`]]
 		}
@@ -83,6 +83,21 @@ customElements.define(`book-info`, BookInfo)
 
 const style = html`
 <style>
+book-info {
+	display: block;
+	max-height: 380px;
+    overflow-y: scroll;
+}
+
+book-info::-webkit-scrollbar {	
+	width: 5px;
+}
+
+book-info::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+}
+
 .book-list {
     display: grid;
     grid-template-columns: 80px auto;
@@ -107,7 +122,14 @@ const style = html`
 .book-list .title {
     color: #0072bc;
     font-weight: bold;
-    text-overflow: ellipsis;		
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    word-break: break-word;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 
 .book-list .isCheckout {

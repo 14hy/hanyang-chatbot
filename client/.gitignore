@@ -11,6 +11,8 @@ deploy/
 
 platforms/
 plugins/
+*.keystore
+
 # build
 dist/
 zip/

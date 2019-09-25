@@ -29,7 +29,7 @@ if (document.location.search.indexOf(`theme=`) >= 0) {
 
 // Init App
 window.app = new Framework7({
-	id: `com.example.mac.tour`,
+	id: `com.chatbot.hanyang`,
 	name: `하냥한얏봇`,
 	root: `#root`,
 	theme: theme,
