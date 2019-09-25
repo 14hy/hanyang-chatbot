@@ -86,7 +86,8 @@ const style = html`
 #btnList button {
 	color: #2699fb;
 	background-color: white;
-    box-shadow: 0 -3px 10px 0 rgba(0, 0, 0, 0.16);
+	box-shadow: 0 -3px 10px 0 rgba(0, 0, 0, 0.16);
+	height: 100%;
 }
 
 #btnList button.active {

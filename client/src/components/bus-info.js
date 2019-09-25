@@ -25,7 +25,7 @@ class BusInfo extends LitElement {
 	}
     
 	firstUpdated() {
-		this._handlers.onClickBusInfoOut = this.clickBusInfoOut.bind(this)		
+		this._handlers.onClickBusInfoOut = this.clickBusInfoOut.bind(this)
 		this.getBusTime()				
 	}
 
@@ -147,7 +147,7 @@ class BusInfo extends LitElement {
 
 		this.classList.remove(`active`)
 		btn.classList.remove(`active`)
-		document.removeEventListener(`click`, this._handlers.onClickBusInfoOut)
+		document.querySelector(`main`).removeEventListener(`scroll`, this._handlers.onScrollBusInfoOut)
 		window.clearInterval(this._handlers.intervalBusInfo)
 	}
     

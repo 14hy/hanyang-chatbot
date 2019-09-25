@@ -141,8 +141,8 @@ header > .date {
 }
 
 main {
-	overflow: scroll;
-	-webkit-overflow-scrolling: touch;
+	overflow-y: scroll;
+	overflow-x: hidden;
 
     display: grid;
     grid-template-columns: 1fr;
@@ -153,7 +153,7 @@ main {
 	margin-bottom: 20px;
 
 	position: relative;
-    z-index: -5;
+    z-index: 0;
 }
 
 footer {
@@ -161,11 +161,14 @@ footer {
 	grid-template-rows: 40px 50px;	    
 
 	background-color: white;
+	z-index: 5;
 }
 
 .chat-input {
     display: grid;
-    grid-template-columns: auto 50px;
+	grid-template-columns: auto 50px;
+	
+	background-color: white;
 }
 
 #inputText.text-send {
