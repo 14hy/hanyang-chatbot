@@ -9,8 +9,7 @@ class FoodList extends LitElement {
 	}
     
 	constructor() {
-		super()
-        
+		super()    		
 		this.mealData = store.getState().foodInfo
 	}
     

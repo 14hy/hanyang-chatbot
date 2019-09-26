@@ -78,3 +78,7 @@ export const waitSend = actionCreator((state, callback) => {
 
 	return state
 })
+
+export const getStore = actionCreator((state, callback) => {
+	callback(store)
+})

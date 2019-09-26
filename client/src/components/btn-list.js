@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 
-import { say, waitSend } from '../libs/actions.js'
+import { say, waitSend, loadXhr, getStore } from '../libs/actions.js'
 
 import '../components/food-list.js'
 import '../components/bus-info.js'
@@ -41,8 +41,10 @@ class BtnList extends LitElement {
 	}
 
 	get clickFood() {
+		const root = this
 		return {
-			handleEvent() {	
+			async handleEvent() {	
+				await root.initFoodInfo()
 				say(`my`, `학식 메뉴 알려줘~`)			
 				say(`bot`, `<food-list></food-list>`, `school-food`)
 			},
@@ -65,6 +67,22 @@ class BtnList extends LitElement {
 			},
 			capture: true,
 		}
+	}
+
+	async initFoodInfo() {
+		const foodStores = [`교직원식당`, `학생식당`, `창의인재원식당`, `푸드코트`, `창업보육센터`]
+    
+		let res = await Promise.all(foodStores.map(foodStore => loadXhr({
+			url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/service/food/?restaurant=${foodStore}`,
+			method: `GET`,
+		})))    
+		res = res.map(each => JSON.parse(each))
+
+		getStore(store => {			
+			store.setState({
+				foodInfo: res,
+			})
+		})		
 	}
 }
 
