@@ -155,6 +155,10 @@ main {
     z-index: 0;
 }
 
+main my-chat-balloon:last-of-type, main bot-chat-balloon:last-of-type {
+	margin-bottom: 20px;
+}
+
 footer {
     display: grid;
 	grid-template-rows: 40px 50px;	    
