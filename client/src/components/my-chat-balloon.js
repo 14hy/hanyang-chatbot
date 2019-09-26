@@ -62,10 +62,6 @@ customElements.define(`my-chat-balloon`, MyChatBalloon)
 
 const style = html`
 <style>
-my-chat-balloon {
-	margin-bottom: 20px;
-}
-
 .my-chat {
 	width: 100%;
 	display: grid;
@@ -73,7 +69,7 @@ my-chat-balloon {
 	grid-template-columns: 1fr;
 	min-height: 30px;
 	box-sizing: border-box;
-	float: right;	
+	float: right;
 }	
 
 .my-chat .chat-wrap {

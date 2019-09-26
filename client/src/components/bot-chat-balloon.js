@@ -53,8 +53,6 @@ const style = html`
 bot-chat-balloon {
 	width: 100%;
 	min-height: min-content;
-
-	margin-bottom: 20px;
 }
 
 .bot-chat {
@@ -64,7 +62,7 @@ bot-chat-balloon {
 	grid-template-areas: 
 		"a b"
 		"a c";
-	min-height: 70px;	
+	min-height: 70px;
 }	
 
 .bot-chat .profile {
