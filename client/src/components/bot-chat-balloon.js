@@ -99,7 +99,7 @@ bot-chat-balloon {
 
 	display: grid;
 	grid-template-rows: 1fr;
-	grid-row-gap: 5px;
+	grid-row-gap: 10px;
 }
 
 .bot-chat .chat-content, .bot-chat .chat-content-continue {
