@@ -70,5 +70,4 @@ module.exports = {
 		disableHostCheck: true,
 		port: 9000,
 	},
-	devtool: `inline-source-map`,
 }

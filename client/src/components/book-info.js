@@ -48,7 +48,7 @@ class BookInfo extends LitElement {
                 <div class='title'>${book}</div>
                 <div class='author'>${this.author[index]}</div>
                 <div class='publication'>${this.publication[index]}</div>
-                <div class='isCheckout'>${this.isCheckout[index] ? html`<span class="can-borrow">대출 가능</span>` : html`<span class="not-borrow">대출 불가</span>`}</div>
+                <div class='isCheckout'>${this.isCheckout[index] === `대출가능` ? html`<span class="can-borrow">대출 가능</span>` : html`<span class="not-borrow">대출 중</span>`}</div>
             </div>
         </div>
         `)}        
@@ -75,6 +75,7 @@ class BookInfo extends LitElement {
 			this.imageSrc = [...this.imageSrc, res[`data`][`list`][i][`thumbnailUrl`] || `https://information.hanyang.ac.kr/assets/images/hy/sub/default-item-img.png`]
 			this.isCheckout = [...this.isCheckout, res[`data`][`list`][i][`branchVolumes`]
 				.find(each => each.name.indexOf(`ERICA`))[`cState`]]
+			console.log(this.isCheckout)
 		}
 	}
 }
