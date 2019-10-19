@@ -73,13 +73,13 @@ bot-chat-balloon {
 
 .bot-chat .profile-img {
 	width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    background-image: url(./img/hanyang.png);
-    background-repeat: no-repeat;
-    background-position-y: -3px;
-    background-position-x: center;
-    background-size: 75px;
+	height: 50px;
+	border-radius: 25px;
+	background-image: url(./img/hanyang.png);
+	background-repeat: no-repeat;
+	background-position-y: -3px;
+	background-position-x: center;
+	background-size: 75px;
 }
 
 .bot-chat .name {
@@ -107,7 +107,7 @@ bot-chat-balloon {
 	height: fit-content;
 	min-width: 20px;
 	width: fit-content;
-	max-width: calc(100vw - 80px);		
+	max-width: 70vw;
 	background: white;
 	padding: 5px 10px 5px 10px;
 	box-sizing: border-box;

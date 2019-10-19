@@ -75,7 +75,6 @@ class BookInfo extends LitElement {
 			this.imageSrc = [...this.imageSrc, res[`data`][`list`][i][`thumbnailUrl`] || `https://information.hanyang.ac.kr/assets/images/hy/sub/default-item-img.png`]
 			this.isCheckout = [...this.isCheckout, res[`data`][`list`][i][`branchVolumes`]
 				.find(each => each.name.indexOf(`ERICA`))[`cState`]]
-			console.log(this.isCheckout)
 		}
 	}
 }

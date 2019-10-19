@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit-element'
-import { say } from '../libs/actions.js'
+import { say, loadXhr } from '../libs/actions.js'
 
 import '../components/my-chat-balloon.js'
 import '../components/bot-chat-balloon.js'
@@ -61,7 +61,7 @@ export class PageMain extends LitElement {
 	}    
     
 	enterTextSend(event) {		
-		const isEnter = event.keyCode === 13
+		const isEnter = event.keyCode === 13		
 
 		if (event.target.value.trim() === ``) {			
 			return
@@ -69,7 +69,11 @@ export class PageMain extends LitElement {
 
 		if (isEnter) {									
 			say(`my`, event.target.value)
-			event.target.value = ``
+			loadXhr({
+				url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/${event.target.value}`,
+				method: `GET`,
+			})
+			event.target.value = ``			
 		}
 	}
     
@@ -155,12 +159,16 @@ main {
     z-index: 0;
 }
 
-main my-chat-balloon:last-of-type, main bot-chat-balloon:last-of-type {
+main my-chat-balloon, main bot-chat-balloon {
+	margin-top: 10px;
+}
+
+main > *:last-child {
 	margin-bottom: 20px;
 }
 
 footer {
-    display: grid;
+	display: grid;
 	grid-template-rows: 40px 50px;	    
 
 	background-color: white;

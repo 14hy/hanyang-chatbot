@@ -20,9 +20,9 @@ class BtnList extends LitElement {
 			${style}
 			<ul id="btnList">
 				<bus-info></bus-info>
-                <button class="btn-food col button button-raised button" @click=${this.clickFood}>학식</button>
-                <button class="btn-book col button button-raised button" @click=${this.clickBook}>도서</button>
-                <button class="btn-shuttle col button button-raised button" @click=${this.clickBusInfo}>셔틀</button>
+                <button class="btn-food col button button-raised button" @click=${this.clickFood}><img src="/img/icon-food.png" alt="학식 아이콘" width="20" height="20" class="icon icon-food">학식</button>
+                <button class="btn-book col button button-raised button" @click=${this.clickBook}><img src="/img/icon-book.png" alt="도서 아이콘" width="25" height="25" class="icon">도서</button>
+                <button class="btn-shuttle col button button-raised button" @click=${this.clickBusInfo}><img src="/img/icon-bus.png" alt="셔틀 아이콘" width="20" height="20" class="icon">셔틀</button>
 			</ul>
 		`
 	}
@@ -60,10 +60,12 @@ class BtnList extends LitElement {
 				const busInfo = root.querySelector(`bus-info`)
 				const btn = event.target
 				if (btn.classList.contains(`active`)) {
-					busInfo.hide()
+					busInfo.hide()					
+					btn.querySelector(`.icon`).src = `/img/icon-bus.png`
 					return
 				}						
 				busInfo.show()
+				btn.querySelector(`.icon`).src = `/img/icon-bus-active.png`
 			},
 			capture: true,
 		}
@@ -102,16 +104,30 @@ const style = html`
 }
 
 #btnList button {
-	color: #2699fb;
-	background-color: white;
-	box-shadow: 0 -3px 10px 0 rgba(0, 0, 0, 0.16);
+	display: flex;
+	align-items: center;
+	color: #8B8B8B;
+	background-color: #E9E9E9;
+	box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.1);
 	height: 100%;
+	border-radius: 0;
 }
 
 #btnList button.active {
+	box-shadow: 0 -5px 10px 0 rgba(132, 161, 255, 0.2);
 	background-color: #24609f;
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: 0;
+	color: rgba(255, 255, 255, 0.8);
+	border-radius: 0;
+	transition: all 0.2s ease;
+}
+
+#btnList .icon {	
+	display: inline-block;
+	margin-right: 5px;
+}
+
+#btnList .icon-food {
+	margin-bottom: 2px;
 }
 </style>
 `

@@ -71,7 +71,6 @@ customElements.define(`food-list`, FoodList)
 const style = html`
 <style>
 food-list .chat-content {    
-    padding-right: 138px !important;
     z-index: 20;
 }
 
@@ -100,7 +99,7 @@ food-list .list ul:after, food-list .list ul:before {
 .food-wrap {
     position: relative;
     z-index: 10;
-    width: 300px;
+    width: 70vw;
     background-color: white;
     top: -20px;
     left: 0;
