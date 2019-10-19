@@ -60,20 +60,21 @@ export class PageMain extends LitElement {
 		return `${year}년 ${month}월 ${day}일`
 	}    
     
-	enterTextSend(event) {		
-		const isEnter = event.keyCode === 13		
+	async enterTextSend(event) {		
+		const isEnter = event.keyCode === 13
+		let text = event.target.value
 
-		if (event.target.value.trim() === ``) {			
+		if (text.trim() === ``) {			
 			return
 		}
 
 		if (isEnter) {									
-			say(`my`, event.target.value)
-			loadXhr({
-				url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/${event.target.value}`,
+			say(`my`, text)
+			await loadXhr({
+				url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/${encodeURIComponent(text)}`,
 				method: `GET`,
 			})
-			event.target.value = ``			
+			text = ``
 		}
 	}
     
