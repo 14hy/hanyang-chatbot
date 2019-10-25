@@ -28,8 +28,10 @@ class BtnList extends LitElement {
 	}
 
 	get clickBook() {
+		const root = this
 		return {
 			async handleEvent() {	
+				root.changeImgSrc(`./img/logo-book.png`)
 				await say(`my`, `도서관 검색해줘`)			
 				await say(`bot`, `학술정보관에서 검색해줄게.<br/><strong>'책 이름'</strong>을 입력해줘~`)
 				waitSend(text => {
@@ -38,14 +40,15 @@ class BtnList extends LitElement {
 			},
 			capture: true,
 		}
-	}
+	}	
 
 	get clickFood() {
 		const root = this
 		return {
 			async handleEvent() {	
+				root.changeImgSrc(`./img/logo-food.png`)
 				await root.initFoodInfo()
-				say(`my`, `학식 메뉴 알려줘~`)			
+				say(`my`, `학식 메뉴 알려줘~`)
 				say(`bot`, `<food-list></food-list>`, `school-food`)
 			},
 			capture: true,
@@ -59,6 +62,8 @@ class BtnList extends LitElement {
 			handleEvent(event) {
 				const busInfo = root.querySelector(`bus-info`)
 				const btn = event.target
+
+				root.changeImgSrc(`./img/logo-bus.png`)
 				if (btn.classList.contains(`active`)) {
 					busInfo.hide()										
 					return
@@ -67,6 +72,13 @@ class BtnList extends LitElement {
 			},
 			capture: true,
 		}
+	}
+
+	changeImgSrc(src) {
+		const logo = document.querySelector(`.hanyang-icon`)
+		logo.classList.add(`up`)
+		window.setTimeout(() => logo.classList.remove(`up`), 400)
+		logo.src = src
 	}
 
 	async initFoodInfo() {
