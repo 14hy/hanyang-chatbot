@@ -20,9 +20,9 @@ class BtnList extends LitElement {
 			${style}
 			<ul id="btnList">
 				<bus-info></bus-info>
-                <button class="btn-food col button button-raised button" @click=${this.clickFood}><img src="/img/icon-food.png" alt="학식 아이콘" width="20" height="20" class="icon icon-food">학식</button>
-                <button class="btn-book col button button-raised button" @click=${this.clickBook}><img src="/img/icon-book.png" alt="도서 아이콘" width="25" height="25" class="icon">도서</button>
-                <button class="btn-shuttle col button button-raised button" @click=${this.clickBusInfo}><img src="/img/icon-bus.png" alt="셔틀 아이콘" width="20" height="20" class="icon">셔틀</button>
+                <button class="btn-food col button button-raised button" @click=${this.clickFood}><img src="./img/icon-food.png" alt="학식 아이콘" width="20" height="20" class="icon icon-food">학식</button>
+                <button class="btn-book col button button-raised button" @click=${this.clickBook}><img src="./img/icon-book.png" alt="도서 아이콘" width="25" height="25" class="icon">도서</button>
+                <button class="btn-shuttle col button button-raised button" @click=${this.clickBusInfo}><img src="./img/icon-bus.png" alt="셔틀 아이콘" width="20" height="20" class="icon">셔틀</button>
 			</ul>
 		`
 	}
@@ -60,12 +60,10 @@ class BtnList extends LitElement {
 				const busInfo = root.querySelector(`bus-info`)
 				const btn = event.target
 				if (btn.classList.contains(`active`)) {
-					busInfo.hide()					
-					btn.querySelector(`.icon`).src = `/img/icon-bus.png`
+					busInfo.hide()										
 					return
 				}						
-				busInfo.show()
-				btn.querySelector(`.icon`).src = `/img/icon-bus-active.png`
+				busInfo.show()				
 			},
 			capture: true,
 		}

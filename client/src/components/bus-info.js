@@ -31,7 +31,8 @@ class BusInfo extends LitElement {
 
 	render() {
 		return html`
-			${style}
+            ${style}
+            <img class="big-hanyang" src="./img/big-hanyang.png" alt="하냥이" width="200" height="200"/>
             <div class="shuttle-title">셔틀버스 시간표</div>
             <ul class="shuttle-place">
                 <li>기숙사</li>
@@ -137,7 +138,8 @@ class BusInfo extends LitElement {
 		const btn = document.querySelector(`.btn-shuttle`)
 
 		this.classList.add(`active`)
-		btn.classList.add(`active`)
+        btn.classList.add(`active`)
+        btn.querySelector(`.icon`).src = `./img/icon-bus-active.png`
 		document.addEventListener(`click`, this._handlers.onClickBusInfoOut)
 		this._handlers.intervalBusInfo = window.setInterval(this.getBusTime.bind(this), 10000)
 	}
@@ -146,7 +148,8 @@ class BusInfo extends LitElement {
 		const btn = document.querySelector(`.btn-shuttle`)
 
 		this.classList.remove(`active`)
-		btn.classList.remove(`active`)
+        btn.classList.remove(`active`)
+        btn.querySelector(`.icon`).src = `./img/icon-bus.png`
 		document.querySelector(`main`).removeEventListener(`scroll`, this._handlers.onScrollBusInfoOut)
 		window.clearInterval(this._handlers.intervalBusInfo)
 	}
@@ -191,6 +194,14 @@ bus-info .shuttle-title {
 
     padding-top: 30px;
     padding-left: 25px;
+}
+
+bus-info .big-hanyang {
+    position: absolute;
+    right: 3vw;
+    top: -163px;
+    width: 200px;
+    height: 200px;
 }
 
 .shuttle-place {
