@@ -21,8 +21,8 @@ def _refresh(restaurant):
     logger.info(f'refreshed {cache[restaurant]}')
 
 
-for restaurant in Restaurants:
-    _refresh(restaurant.name)
+# for restaurant in Restaurants:
+#     _refresh(restaurant.name)
 
 
 @ns_food.route('/')
