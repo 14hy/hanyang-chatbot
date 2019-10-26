@@ -1,60 +1,6 @@
 # Hanyang-Univ Erica Campus Chatbot
 
-##  저장소 클론하기
 
-```
-git clone https://github.com/hanyang-chatbot/hanyang-chatbot
-cd hanyang-chatbot
-```
-
-# 구조
-
-```markdown
-📦client
-작성 예정
-📦server
- ┣ 📂api
- ┃ ┣ 📂v3
- ┣ 📂db
- ┣ 📂src
- ┃ ┣ 📂analyze
- ┃ ┣ 📂preprocessor
- ┃ ┣ 📂services
- ┣ 📜Dockerfile
- ┣ 📜README.md
- ┣ 📜app.py
- ┣ 📜config.py
- ┣ 📜docker-compose.yaml
- ┗ 📜requirements.txt
-```
-
-
-
-# 환경
-
-```markdown
-
-```
-
-# 실행하기
-
-## Server
-
-```bash
-cd server
-
-# 실행
-sudo docker-compose up -d
-
-# 종료
-sudo docker-compose down
-```
-
-## Client
-
-```bash
-작성 예정
-```
-
-
+| ![image](https://user-images.githubusercontent.com/12870549/67618253-e15ea500-f827-11e9-9b4a-a79352ecd916.png) | ![image](https://user-images.githubusercontent.com/12870549/67618289-5336ee80-f828-11e9-9cd3-6cfc7978efd2.png) | ![image](https://user-images.githubusercontent.com/12870549/67618193-10c0e200-f827-11e9-92f4-5d2f4a27b44f.png) |
+|----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
 
