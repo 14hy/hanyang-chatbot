@@ -57,7 +57,7 @@ def whitespace_tokenize(text):
 
 # TODO Lemmatization
 @basic_timer
-@basic_logger
+@debug_logger
 def clean(text, token=False):
     """전처리 함수
 
