@@ -6,6 +6,10 @@ def _norm(text):
     return unicodedata.normalize('NFD', text)
 
 
+def unigram(text):
+    return text.split()
+
+
 def bigram(text):
     text = _norm(text)
     return list(map(lambda x: ''.join(x), zip(text, text[1:])))

@@ -2,6 +2,7 @@ from db.connect import db
 from db.user_input import UserInput
 from engine.preprocessor.n_gram import *
 from collections import OrderedDict
+import random
 
 collection_qna = db.collection('qna')
 
@@ -19,12 +20,27 @@ def _calc_jaacard(a, b):
 
         return num_joint / num_union
 
-    a_grams, b_grams = bigram(a), bigram(b)
-    score_bigram = __calc_jaccard(a_grams, b_grams)
-    a_grams, b_grams = trigram(a), trigram(b)
-    score_trigram = __calc_jaccard(a_grams, b_grams)
+    # Scores
+    score_unigram = 0
+    score_bigram = 0
+    score_trigram = 0
 
-    return score_bigram + score_trigram
+    # Get scores
+
+    grams_a = unigram(a)
+    grams_b = unigram(b)
+    if len(grams_a) > 0 and len(grams_b) > 0:
+        score_unigram = __calc_jaccard(grams_a, grams_b)
+    grams_a = bigram(a)
+    grams_b = bigram(b)
+    if len(grams_a) > 1 and len(grams_b) > 1:
+        score_bigram = __calc_jaccard(grams_a, grams_b)
+    grams_a = trigram(a)
+    grams_b = trigram(b)
+    if len(grams_a) > 2 and len(grams_b) > 2:
+        score_trigram = __calc_jaccard(grams_a, grams_b)
+
+    return score_unigram + score_bigram + score_trigram
 
 
 def get_response(user_input: UserInput):
@@ -43,7 +59,27 @@ def get_response(user_input: UserInput):
         _score = _calc_jaacard(a, b)
         distance_dict[answer] = _score
 
-    return OrderedDict(sorted(distance_dict.items(), key=lambda t: t[1], reverse=True))
+    distance_dict = OrderedDict(sorted(distance_dict.items(), key=lambda t: t[1], reverse=True))
+    ret = list(distance_dict.items())
+
+    top_score = 0
+    top_answers = []
+    for each in ret:
+        if top_score == 0:
+            if each[1] != 0:
+                top_score = each[1]
+                top_answers.append(each[0])
+        else:
+            if top_score == each[1]:
+                top_answers.append(each[0])
+            else:
+                break
+
+    if not top_answers:
+        return '잘 모르겠다냥~'
+    else:
+        ret = random.choice(top_answers)
+        return ret
 
 
 if __name__ == '__main__':

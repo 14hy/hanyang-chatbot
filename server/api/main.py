@@ -19,8 +19,6 @@ class Index(Resource):
         text = clean(text, token=False)
         ui = UserInput(text=text)
         ret: dict = get_response(ui)
-        pprint(ret)
-        ret = list(ret.items())[0][0]
 
         user_input.add(ui.to_dict())
 
