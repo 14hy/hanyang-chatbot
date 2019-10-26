@@ -116,7 +116,7 @@ const style = html`
 .my-chat .chat-time {
 	position: absolute;
     bottom: 0px;
-    left: -50px;
+    left: -60px;
     color: #727272;
     font-size: 6px;
 }
