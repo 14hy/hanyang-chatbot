@@ -54,3 +54,8 @@ li {
   font-family: Noto-sans;
   src: url(../fonts/NotoSansKR-Regular.woff);
 }
+
+@font-face {
+  font-family: BinggreTaom;
+  src: url(../fonts/BinggraeTaom.otf);
+}
