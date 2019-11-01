@@ -36,7 +36,11 @@ class BtnList extends LitElement {
 				await say(`bot`, `학술정보관에서 검색해줄게.<br/><strong>'책 이름'</strong>을 입력해줘~`)
 
 				window.canChat = false
-				waitSend(text => {					
+				waitSend(text => {
+					if (text === `학식 메뉴 알려줘~`) {
+						return
+					}
+
 					say(`bot`, `<book-info searchText="${text}"></book-info>`)
 					window.canChat = true
 				})
