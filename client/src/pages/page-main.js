@@ -60,22 +60,30 @@ export class PageMain extends LitElement {
     
 	async enterTextSend(event) {		
 		const isEnter = event.keyCode === 13
-		let text = event.target.value
+		const text = event.target.value
+		const pageMain = document.querySelector(`page-main`)
 
 		if (text.trim() === ``) {			
 			return
 		}
 
-		if (isEnter) {									
+		if (isEnter) {
 			say(`my`, text)
-			let res = await loadXhr({
-				url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/${encodeURIComponent(text)}`,
-				method: `GET`,
-			})
-			res = JSON.parse(res)
-			say(`bot`, res.answer)
-			event.target.value = ``
+			pageMain.emptyText(event.target)
+
+			if (window.canChat) {
+				let res = await loadXhr({
+					url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/${encodeURIComponent(text)}`,
+					method: `GET`,
+				})
+				res = JSON.parse(res)
+				say(`bot`, res.answer)
+			}			
 		}
+	}
+
+	emptyText(element) {
+		element.value = ``
 	}
     
 	get clickSend() {

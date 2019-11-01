@@ -34,9 +34,12 @@ class BtnList extends LitElement {
 				root.changeImgSrc(`./img/logo-book.png`)
 				await say(`my`, `도서관 검색해줘`)			
 				await say(`bot`, `학술정보관에서 검색해줄게.<br/><strong>'책 이름'</strong>을 입력해줘~`)
-				waitSend(text => {
+
+				window.canChat = false
+				waitSend(text => {					
 					say(`bot`, `<book-info searchText="${text}"></book-info>`)
-				})				
+					window.canChat = true
+				})
 			},
 			capture: true,
 		}

@@ -44,19 +44,19 @@ class BusInfo extends LitElement {
             </ul>
             <div class="shuttle-body">
                 <ul class="shuttle-line">
-                    <li>한대앞역 행</li>
-                    <li>순환버스</li>
+                    <li>한대앞역 행</li>                    
                     <li>예술인행</li>
+                    <li>순환버스</li>
                 </ul>
                 <ul class="shuttle-time">
                     <div class="time-line-1"></div>
                     <div class="time-line-2"></div>
                     <div class="time-line-3"></div>
-                    ${this.liStation()}
-                    
-                    ${this.liCycle()}
+                    ${this.liStation()}                                    
 
                     ${this.liArt()}
+
+                    ${this.liCycle()}
                 </ul>
             </div>
 		`
@@ -138,8 +138,8 @@ class BusInfo extends LitElement {
 		const btn = document.querySelector(`.btn-shuttle`)
 
 		this.classList.add(`active`)
-        btn.classList.add(`active`)
-        btn.querySelector(`.icon`).src = `./img/icon-bus-active.png`
+		btn.classList.add(`active`)
+		btn.querySelector(`.icon`).src = `./img/icon-bus-active.png`
 		document.addEventListener(`click`, this._handlers.onClickBusInfoOut)
 		this._handlers.intervalBusInfo = window.setInterval(this.getBusTime.bind(this), 10000)
 	}
@@ -148,8 +148,8 @@ class BusInfo extends LitElement {
 		const btn = document.querySelector(`.btn-shuttle`)
 
 		this.classList.remove(`active`)
-        btn.classList.remove(`active`)
-        btn.querySelector(`.icon`).src = `./img/icon-bus.png`
+		btn.classList.remove(`active`)
+		btn.querySelector(`.icon`).src = `./img/icon-bus.png`
 		document.querySelector(`main`).removeEventListener(`scroll`, this._handlers.onScrollBusInfoOut)
 		window.clearInterval(this._handlers.intervalBusInfo)
 	}

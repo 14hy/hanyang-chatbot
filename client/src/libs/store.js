@@ -1,5 +1,7 @@
 import createStore from './redux-zero.js'
 
+window.canChat = true
+
 const initialState = {
 	foodInfo: [],
 }
