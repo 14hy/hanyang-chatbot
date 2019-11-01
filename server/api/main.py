@@ -1,7 +1,7 @@
 from lib.flask_restplus import Resource, Namespace
-from engine.main import Chatbot
-from db.connect import db
-from db.user_input import UserInput
+from pprint import pprint
+from engine.preprocessor.clean import *
+from engine.services.talk import *
 
 # from engine.preprocessor.morph import analyze
 
@@ -16,8 +16,10 @@ class Index(Resource):
 
     @ns.doc('챗봇 입력')
     def get(self, text):
+        text = clean(text, token=False)
         ui = UserInput(text=text)
+        ret: dict = get_response(ui)
 
         user_input.add(ui.to_dict())
 
-        return text
+        return {'answer': ret}, 200

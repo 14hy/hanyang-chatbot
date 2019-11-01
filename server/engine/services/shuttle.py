@@ -1,6 +1,7 @@
 import enum
 from datetime import time, datetime, timedelta
-from pytz import timezone
+from copy import deepcopy
+from utils import *
 
 
 class Table(enum.Enum):
@@ -159,6 +160,7 @@ class ShuttleBus(object):
                        [[Table.계절_월금_순환노선.value, Table.계절_월금_한대앞.value, Table.계절_월금_예술인.value],
                         [Table.계절_휴일_순환노선.value]], [[Table.방학_월금_순환노선.value], [Table.방학_휴일_순환노선.value]]]
 
+    @debug_logger
     def make_table(self, season, weekend):
         '''
 
@@ -191,7 +193,7 @@ class ShuttleBus(object):
         가장 가까운 셔틀 시간을 계산하여 뿌려 줌
         :return:
         '''
-        KST = timezone('Asia/Seoul')
+        # KST = timezone('Asia/Seoul')
         NOW = datetime.now().astimezone(KST)
         current_time = timedelta(hours=NOW.hour,
                                  minutes=NOW.minute,
@@ -230,7 +232,6 @@ class ShuttleBus(object):
             raise Exception('weekend must be 평일 or 주말')
 
         table = self.make_table(season, weekend)
-        from pprint import pprint
         response = self.create_response(table, current_time)
 
         return response
@@ -262,6 +263,7 @@ class ShuttleBus(object):
     def create_timedelta(minutes, hours=0):
         return timedelta(minutes=minutes, hours=hours)
 
+    @debug_logger
     def create_response(self, table, current_time):
         '''
         [창의원, 셔틀콕, 한대앞역, 예술인, 셔틀콕2]
@@ -381,7 +383,7 @@ class ShuttleBus(object):
         :return:
         '''
 
-        output = table.copy()
+        output = deepcopy(table)
         for i in range(len(table)):
             for j in range(len(table[i])):
                 for k in range(len(table[i][j])):
@@ -407,4 +409,8 @@ class ShuttleBus(object):
 
 if __name__ == "__main__":
     test = ShuttleBus()
-    test.response()
+    from pprint import pprint
+
+    res = test.custom_response(weekend='주말', season='학기중', hours=20, minutes=46, seconds=0)
+    pprint(res)
+    assert res['station_cycle'] == {'minutes': 14, 'seconds': 0, 'status': True}

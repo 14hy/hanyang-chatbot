@@ -4,6 +4,7 @@ from time import time
 from datetime import timezone, timedelta, datetime
 import logging
 from config import Basic as _CONF
+from pprint import pformat
 
 KST = timezone(offset=timedelta(hours=9))
 
@@ -28,13 +29,13 @@ class Singleton(type):  # Type을 상속받음
         return cls.__instances[cls]  # 클래스로 인스턴스를 생성했으면 인스턴스 반환
 
 
-def basic_logger(fn: Callable):
+def debug_logger(fn: Callable):
     """Logger decorator"""
 
     @wraps(fn)
     def wrapper(*args, **kwargs):
         ret = fn(*args, **kwargs)
-        logger.debug(f'in {fn.__name__}, args: {args}, kwargs: {kwargs}, return: {ret}')
+        logger.debug(f'in {fn.__name__}, args: {pformat(args)}, kwargs: {pformat(kwargs)}, return: {pformat(ret)}')
         return ret
 
     return wrapper
