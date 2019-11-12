@@ -225,8 +225,9 @@ bus-info .big-hanyang {
 .shuttle-body {
     display: grid;
     grid-template-columns: 20vw 70vw;
+    margin-top: 10px;
     margin-left: 5vw;
-    margin-right: 5vw;
+    margin-right: 5vw;    
 }
 
 .shuttle-line {
@@ -235,6 +236,10 @@ bus-info .big-hanyang {
     align-items: center;
     color: rgba(255, 255, 255, 0.8);
     font-size: 14px;    
+}
+
+.shuttle-line li {
+    padding-bottom: 14px;
 }
 
 .shuttle-time {
