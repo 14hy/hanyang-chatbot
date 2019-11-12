@@ -18,7 +18,7 @@
         </edit-config>        
     </platform>
     <platform name="ios">
-        <splash src="www/img/splash.9.png" />
+        <splash src="www/img/splash.png" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
