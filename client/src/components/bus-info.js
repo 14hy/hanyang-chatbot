@@ -105,7 +105,7 @@ class BusInfo extends LitElement {
 		return html`
         ${this.busTimeStation.map((time, index) => html`
         <li>
-            <span>${index === 3 ? ``: `●`}</span>
+            <span class="basic-circle ${time.trim().length !== 0 && time !== `...` ? `circle` : ``}">${index === 3 ? ``: `●`}</span>
             <span class="time-value">${time}</span>
         </li>
         `)}
@@ -113,10 +113,10 @@ class BusInfo extends LitElement {
 	}
     
 	liCycle() {
-		return html`
+		return html`        
         ${this.busTimeCycle.map(time => html`
         <li>
-            <span>●</span>
+            <span class="basic-circle ${time.trim().length !== 0 && time !== `...` ? `circle` : ``}">●</span>
             <span class="time-value">${time}</span>
         </li>
         `)} 
@@ -127,7 +127,7 @@ class BusInfo extends LitElement {
 		return html`
         ${this.busTimeArt.map((time, index) => html`
         <li>
-            <span>${index === 2 ? ``: `●`}</span>
+            <span class="basic-circle ${time.trim().length !== 0 && time !== `...` ? `circle` : ``}">${index === 2 ? ``: `●`}</span>
             <span class="time-value">${time}</span>
         </li>
         `)}
@@ -141,7 +141,7 @@ class BusInfo extends LitElement {
 		btn.classList.add(`active`)
 		btn.querySelector(`.icon`).src = `./img/icon-bus-active.png`
 		document.addEventListener(`click`, this._handlers.onClickBusInfoOut)
-		this._handlers.intervalBusInfo = window.setInterval(this.getBusTime.bind(this), 10000)
+		this._handlers.intervalBusInfo = window.setInterval(this.getBusTime.bind(this), 60000)
 	}
     
 	hide() {
@@ -292,6 +292,43 @@ bus-info .time-value {
 
     100% {
         bottom: 40px;
+    }
+}
+
+.basic-circle {
+    font-size: 6px;
+}
+
+.circle {
+    position: relative;
+    top: -7px;
+    left: 10px;
+    font-size: 6px;
+}
+
+.circle:after {
+    content: '';
+    position: relative;
+    animation: move 2s ease-in-out infinite;
+    z-index: 10;
+    background-image: url('img/bus-effect.png');
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+@keyframes move {
+    0% {
+        left: -12px;
+        top: 7px;
+        opacity: 0;
+    }
+
+    100% {
+        left: calc(10vw - 15px);
+        top: 7px;
+        opacity: 1;
     }
 }
 </style>

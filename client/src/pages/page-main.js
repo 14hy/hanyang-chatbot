@@ -140,7 +140,7 @@ const style = html`
 }
 
 #pageMain {
-	border: 1px solid #595959;
+	border: 0 solid #595959;
 	width: 100%;
 	height: 100%;
 	margin: 0 auto;
