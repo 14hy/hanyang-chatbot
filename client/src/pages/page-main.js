@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit-element'
-import { say, loadXhr } from '../libs/actions.js'
+import { say, loadXhr, getStore } from '../libs/actions.js'
 
 import '../components/my-chat-balloon.js'
 import '../components/bot-chat-balloon.js'
@@ -22,9 +22,10 @@ export class PageMain extends LitElement {
 		return this
 	}
     
-	firstUpdated() {
+	async firstUpdated() {
 		this.querySelector(`#inputText`).addEventListener(`keypress`, this.enterTextSend)
 		say(`bot`, `안녕하냥~ 나는 너를 도울 수 있어.`)
+		await this.initFoodInfo()
 	}
 
 	render() {
@@ -128,6 +129,22 @@ export class PageMain extends LitElement {
 			},
 			capture: true,
 		}
+	}
+
+	async initFoodInfo() {
+		const foodStores = [`교직원식당`, `학생식당`, `창의인재원식당`, `푸드코트`, `창업보육센터`]
+    
+		let res = await Promise.all(foodStores.map(foodStore => loadXhr({
+			url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/service/food/?restaurant=${foodStore}`,
+			method: `GET`,
+		})))    
+		res = res.map(each => JSON.parse(each))
+
+		getStore(store => {			
+			store.setState({
+				foodInfo: res,
+			})
+		})		
 	}
 }
 

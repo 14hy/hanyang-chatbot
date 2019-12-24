@@ -26,7 +26,7 @@ class BusInfo extends LitElement {
     
 	firstUpdated() {
 		this._handlers.onClickBusInfoOut = this.clickBusInfoOut.bind(this)
-		this.getBusTime()				
+		this.getBusTime()		
 	}
 
 	render() {
@@ -37,14 +37,14 @@ class BusInfo extends LitElement {
             <ul class="shuttle-place">
                 <li>기숙사</li>
                 <li>셔틀콕</li>
-                <li>한대앞역</li>
+                <li>한대앞</li>
                 <li>예술인</li>
                 <li>셔틀콕</li>
                 <li>기숙사</li>
             </ul>
             <div class="shuttle-body">
                 <ul class="shuttle-line">
-                    <li>한대앞역 행</li>                    
+                    <li>한대앞행</li>                    
                     <li>예술인행</li>
                     <li>순환버스</li>
                 </ul>
@@ -57,6 +57,8 @@ class BusInfo extends LitElement {
                     ${this.liArt()}
 
                     ${this.liCycle()}
+
+                    ${this.insertAnimation()}
                 </ul>
             </div>
 		`
@@ -98,14 +100,14 @@ class BusInfo extends LitElement {
         
 		this.busTimeStation = this.busTimeStation.map(each => each === `0분 전` ? `도착 전`: each)
 		this.busTimeCycle = this.busTimeCycle.map(each => each === `0분 전` ? `도착 전`: each)
-		this.busTimeArt = this.busTimeArt.map(each => each === `0분 전` ? `도착 전`: each)
+		this.busTimeArt = this.busTimeArt.map(each => each === `0분 전` ? `도착 전`: each)        
 	}
     
 	liStation() {
 		return html`
         ${this.busTimeStation.map((time, index) => html`
         <li>
-            <span class="basic-circle ${time.trim().length !== 0 && time !== `...` ? `circle` : ``}">${index === 3 ? ``: `●`}</span>
+            <span time="${Math.min(Number(time.split(`분 전`)[0]), 10)}vw" class="basic-circle ${time.trim().length !== 0 && time !== `...` ? `circle` : ``}">${index === 3 ? ``: `●`}</span>
             <span class="time-value">${time}</span>
         </li>
         `)}
@@ -115,8 +117,8 @@ class BusInfo extends LitElement {
 	liCycle() {
 		return html`        
         ${this.busTimeCycle.map(time => html`
-        <li>
-            <span class="basic-circle ${time.trim().length !== 0 && time !== `...` ? `circle` : ``}">●</span>
+        <li>                     
+            <span time="${Math.min(Number(time.split(`분 전`)[0]), 10)}vw" class="basic-circle ${time.trim().length !== 0 && time !== `...` ? `circle` : ``}">●</span>
             <span class="time-value">${time}</span>
         </li>
         `)} 
@@ -126,12 +128,18 @@ class BusInfo extends LitElement {
 	liArt() {
 		return html`
         ${this.busTimeArt.map((time, index) => html`
-        <li>
-            <span class="basic-circle ${time.trim().length !== 0 && time !== `...` ? `circle` : ``}">${index === 2 ? ``: `●`}</span>
+        <li>            
+            <span time="${Math.min(Number(time.split(`분 전`)[0]), 10)}vw" class="basic-circle ${time.trim().length !== 0 && time !== `...` ? `circle` : ``}">${index === 2 ? ``: `●`}</span>
             <span class="time-value">${time}</span>
         </li>
         `)}
         `
+	}
+    
+	insertAnimation() {
+		setTimeout(() => this.querySelectorAll(`.basic-circle`).forEach((each, index) => {			
+			document.styleSheets[0].addRule(`.shuttle-time li:nth-of-type(${index+1}) span.basic-circle::after`, `left: calc(-12px - ${each.getAttribute(`time`)});`)
+		}), 500)
 	}
     
 	show() {
@@ -207,19 +215,53 @@ bus-info .big-hanyang {
 .shuttle-place {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    margin-left: 5vw;
-    margin-right: 5vw;
-    padding-left: 20vw;
+    margin-left: 4vw;
+    margin-right: 4vw;
+    padding-left: 21vw;
+    padding-right: 1vw;
     color: rgba(255, 255, 255, 0.9);
     font-size: 11px;
     letter-spacing: -2px;
     text-align: center;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: #1B4166;
+    border-radius: 15px;
+    line-height: 30px;
+    position: relative;
+}
+
+.shuttle-place:before {
+    font-size: 8px;
+    content: '●';
+    color: #FFBD02;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: left;
+    padding-left: 3vw;
+    width: 10px;
+    height: 10px;
 }
 
 .shuttle-place li {
     list-style: none;
+}
+
+.shuttle-place li:first-child:before {
+    content: '정류장';
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: left;
+    padding-left: calc(3vw + 12px);
+    width: 25vw;
+    height: 100%;
+}
+
+.shuttle-place li:not(:last-child):after {
+    content: '>';
+    position: relative;
+    left: calc(5vw - 12px);
 }
 
 .shuttle-body {
@@ -316,19 +358,21 @@ bus-info .time-value {
     width: 20px;
     height: 20px;
     display: inline-block;
+    top: 7px;
+    left: calc(-10vw - 15px);
 }
 
 @keyframes move {
     0% {
-        left: -12px;
+        /* left: calc(-10vw - 15px); */
         top: 7px;
-        opacity: 0;
+        opacity: 1;
     }
 
     100% {
-        left: calc(10vw - 15px);
         top: 7px;
-        opacity: 1;
+        left: -12px;
+        opacity: 0;
     }
 }
 </style>

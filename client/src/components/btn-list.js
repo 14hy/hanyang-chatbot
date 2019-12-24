@@ -52,11 +52,11 @@ class BtnList extends LitElement {
 	get clickFood() {
 		const root = this
 		return {
-			async handleEvent() {	
-				root.changeImgSrc(`./img/logo-food.png`)
-				await root.initFoodInfo()
+			handleEvent() {	
+				root.changeImgSrc(`./img/logo-food.png`)				
 				say(`my`, `학식 메뉴 알려줘~`)
 				say(`bot`, `<food-list></food-list>`, `school-food`)
+				root.initFoodInfo()
 			},
 			capture: true,
 		}

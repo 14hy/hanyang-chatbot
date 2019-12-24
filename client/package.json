@@ -1,7 +1,7 @@
 {
   "name": "hanyang.chatbot.com",
   "displayName": "hanyang-chatbot",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "webpack.config.js",
   "scripts": {
