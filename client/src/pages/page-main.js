@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit-element'
-import { say, loadXhr, getStore } from '../libs/actions.js'
+import { say, loadXhr, getStore, scrollToLast } from '../libs/actions.js'
 
 import '../components/my-chat-balloon.js'
 import '../components/bot-chat-balloon.js'
@@ -24,7 +24,7 @@ export class PageMain extends LitElement {
     
 	async firstUpdated() {
 		this.querySelector(`#inputText`).addEventListener(`keypress`, this.enterTextSend)
-		say(`bot`, `안녕하냥~ 나는 너를 도울 수 있어.`)
+		say(`bot`, `안녕하냥~ 나는 너를 도울 수 있어`)
 		await this.initFoodInfo()
 	}
 
@@ -97,13 +97,16 @@ export class PageMain extends LitElement {
 				}
 
 				say(`my`, inputText.value)
-				let res = await loadXhr({
-					url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/${encodeURIComponent(inputText.value)}`,
-					method: `GET`,
-				})
-				res = JSON.parse(res)
-				say(`bot`, res.answer)
+
 				inputText.value = `` 
+				if (window.canChat) {
+					let res = await loadXhr({
+						url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/${encodeURIComponent(inputText.value)}`,
+						method: `GET`,
+					})
+					res = JSON.parse(res)
+					say(`bot`, res.answer)					
+				}
 			},
 			capture: true,
 		}
@@ -113,8 +116,7 @@ export class PageMain extends LitElement {
 		const root = this
 		return {
 			handleEvent() {				
-				root.querySelector(`.hanyang-icon`).classList.add(`active`)
-				root.querySelector(`main`).classList.add(`active`)
+				root.querySelector(`#pageMain`).classList.add(`active`)
 			},
 			capture: true,
 		}
@@ -124,8 +126,7 @@ export class PageMain extends LitElement {
 		const root = this
 		return {
 			handleEvent() {				
-				root.querySelector(`.hanyang-icon`).classList.remove(`active`)
-				root.querySelector(`main`).classList.remove(`active`)
+				root.querySelector(`#pageMain`).classList.remove(`active`)
 			},
 			capture: true,
 		}
@@ -169,6 +170,10 @@ const style = html`
 	grid-template-rows: 20vh auto 90px;
 }
 
+#pageMain.active {
+	grid-template-rows: 0vh auto 90px;
+}
+
 header {
 	display: flex;
 	justify-content: center;
@@ -190,29 +195,27 @@ header > img {
 	object-fit: contain;
 }
 
-header > img.active {
-	top: -200%;
-}
-
 header > img.up {
-	animation: slide-up 0.4s ease;
+	animation: fade-out 0.4s ease;
 }
 
-@keyframes slide-up {
+@keyframes fade-out {
 	0% {
-		top: 0;
+		opacity: 1;
 	}
 
 	50% {
-		top: -150%;
+		opacity: 0;
 	}
 
 	100% {
-		top: 0;
+		opacity: 1;
 	}
 }
 
 main {
+	/* scroll-behavior: smooth; */
+
 	overflow-y: scroll;
 	overflow-x: hidden;
 
@@ -226,10 +229,6 @@ main {
 	z-index: 0;
 	top: 0;
 	transition: top 0.3s ease;
-}
-
-main.active {
-	top: -20vh;
 }
 
 main my-chat-balloon, main bot-chat-balloon {

@@ -303,24 +303,24 @@ bus-info .big-hanyang {
 
 .shuttle-time .time-line-1, .shuttle-time .time-line-2, .shuttle-time .time-line-3 {
     position: absolute;
-    width: 84%;
+    width: 92%;
     height: 1px;
     border-bottom: 1px solid #A8C0DA;
 }
 
 .time-line-1 {
-    top: 11.5%;
-    left: 8%;
+    top: 12%;
+    left: 0%;
 }
 
 .time-line-2 {
     top: 45%;
-    left: 8%;
+    left: 0%;
 }
 
 .time-line-3 {
     top: 78%;
-    left: 8%;
+    left: 0%;
 }
 
 bus-info .time-value {
@@ -338,7 +338,9 @@ bus-info .time-value {
 }
 
 .basic-circle {
-    font-size: 6px;
+    font-size: 8px;
+    color: #FFBD02;
+    z-index: 100;
 }
 
 .circle {
@@ -351,7 +353,7 @@ bus-info .time-value {
 .circle:after {
     content: '';
     position: relative;
-    animation: move 2s ease-in-out infinite;
+    /* animation: move 5s ease-in-out infinite; */
     z-index: 10;
     background-image: url('img/bus-effect.png');
     background-size: 20px 20px;
@@ -366,13 +368,13 @@ bus-info .time-value {
     0% {
         /* left: calc(-10vw - 15px); */
         top: 7px;
-        opacity: 1;
+        opacity: 0;
     }
 
     100% {
         top: 7px;
         left: -12px;
-        opacity: 0;
+        opacity: 1;
     }
 }
 </style>
