@@ -43,10 +43,13 @@ def _calc_jaacard(a, b):
     return score_unigram + score_bigram + score_trigram
 
 
+stream_qna = collection_qna.stream()
+
+
 def get_response(user_input: UserInput):
     ui = user_input.to_dict()
     a = ui['text']
-    stream_qna = collection_qna.stream()
+    global stream_qna
 
     distance_dict = {}
 
@@ -83,5 +86,5 @@ def get_response(user_input: UserInput):
 
 
 if __name__ == '__main__':
-    test_ui = UserInput('test')
+    test_ui = UserInput('너 뭐냐')
     print(get_response(test_ui))

@@ -243,7 +243,8 @@ class ShuttleBus(object):
         :return:
         '''
         # TODO 구현
-        return 0
+        # 방학
+        return 2
 
     def check_weekend(self, now):
         '''
