@@ -20,10 +20,7 @@
     <platform name="ios">
         <splash src="www/img/splash.png" />
         <allow-intent href="itms:*" />
-        <allow-intent href="itms-apps:*" />
-
-        <preference name="KeyboardDisplayRequiresUserAction" value="false" />
-        <preference name="KeyboardShrinksView" value="true" />
+        <allow-intent href="itms-apps:*" />        
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="SplashScreen" value="screen" />
@@ -35,6 +32,9 @@
 
     <preference name="DisallowOverscroll" value="true" />
     <preference name="UIWebViewBounce" value="false" />
+
+    <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+    <preference name="KeyboardShrinksView" value="true" />
 
     <plugin name="cordova-plugin-whitelist" spec="1" />
 </widget>
