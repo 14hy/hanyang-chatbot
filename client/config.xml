@@ -30,9 +30,7 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="ErrorUrl" value="www/404.html" />
 
-    <preference name="DisallowOverscroll" value="true" />
-    <preference name="UIWebViewBounce" value="false" />
-
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
     <preference name="KeyboardShrinksView" value="false" />
 
     <plugin name="cordova-plugin-whitelist" spec="1" />
