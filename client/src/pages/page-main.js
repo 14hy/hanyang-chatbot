@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit-element'
-import { say, loadXhr, getStore, scrollToLast } from '../libs/actions.js'
+import { say, loadXhr, getStore } from '../libs/actions.js'
 
 import '../components/my-chat-balloon.js'
 import '../components/bot-chat-balloon.js'
@@ -91,6 +91,7 @@ export class PageMain extends LitElement {
 		return {
 			async handleEvent() {				
 				const inputText = document.querySelector(`#inputText`)
+				const text = inputText.value
 
 				if (inputText.value.trim() === ``) {
 					return 
@@ -101,7 +102,7 @@ export class PageMain extends LitElement {
 				inputText.value = `` 
 				if (window.canChat) {
 					let res = await loadXhr({
-						url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/${encodeURIComponent(inputText.value)}`,
+						url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/${encodeURIComponent(text)}`,
 						method: `GET`,
 					})
 					res = JSON.parse(res)

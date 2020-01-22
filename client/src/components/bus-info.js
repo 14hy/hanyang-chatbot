@@ -303,24 +303,24 @@ bus-info .big-hanyang {
 
 .shuttle-time .time-line-1, .shuttle-time .time-line-2, .shuttle-time .time-line-3 {
     position: absolute;
-    width: 92%;
+    width: 97%;
     height: 1px;
     border-bottom: 1px solid #A8C0DA;
 }
 
 .time-line-1 {
     top: 12%;
-    left: 0%;
+    left: -5%;
 }
 
 .time-line-2 {
     top: 45%;
-    left: 0%;
+    left: -5%;
 }
 
 .time-line-3 {
     top: 78%;
-    left: 0%;
+    left: -5%;
 }
 
 bus-info .time-value {
