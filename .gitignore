@@ -1,1 +1,8 @@
-# Created by .ignore support plugin (hsz.mobi)
+.idea
+venv
+node_modules
+lib
+cool-benefit-185923.json
+secret_key
+.DS_Store
+__pycache__

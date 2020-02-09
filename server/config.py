@@ -1,18 +1,40 @@
-# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-class Basic(object):
-    # DEBUG - INFO - WARN - ERROR - CRITICAL
-    level = "DEBUG"
+class Config(object):
+    LOG_LEVEL = None
 
     # FLASK
-    host = '0.0.0.0'
-    port = 8001
-    debug = True
-    version = 0.1
-    title = 'hanyang-chatbot-api'
-    desc = '2019 SW 학술대회 챗봇 빌더 API 서버'
+    HOST = "0.0.0.0"
+    PORT = 8001
+    DEBUG = None
+    VERSION = 0.3
+    TITLE = "hanyang-chatbot-api"
+    DESC = ""
 
     # FireStore
-    project_id = 'cool-benefit-185923'
-    serviceAccount = 'cool-benefit-185923.json'
+    PROJECT_ID = "cool-benefit-185923"
+    SERVICE_ACCOUNT = "cool-benefit-185923.json"
+
+    # paths
+    SHUTTLE_DIR = "shuttle_files"
+
+    # os.urandom(12).hex()
+    SECRET_KEY = open(f"{BASE_DIR}/secret_key", mode="r").readline()
+
+
+class DevConfig(Config):
+    LOG_LEVEL = "DEBUG"
+    DEBUG = True
+
+
+class ProdConfig(Config):
+    LOG_LEVEL = "DEBUG"
+    DEBUG = False
+
+
+if __name__ == '__main__':
+    print(BASE_DIR)
+    print(Config.SECRET_KEY)

@@ -7,3 +7,4 @@ firebase-admin == 2.18.0
 rivescript == 1.14.9
 lxml == 4.4.1
 cssselect == 1.1.0
+pyyaml == 5.3

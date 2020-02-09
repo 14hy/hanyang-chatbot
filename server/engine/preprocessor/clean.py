@@ -13,8 +13,12 @@ def _is_punctuation(char):
     # Characters such as "^", "$", and "`" are not in the Unicode
     # Punctuation class but we treat them as punctuation anyways, for
     # consistency.
-    if ((cp >= 33 and cp <= 47) or (cp >= 58 and cp <= 64) or
-            (cp >= 91 and cp <= 96) or (cp >= 123 and cp <= 126)):
+    if (
+        (cp >= 33 and cp <= 47)
+        or (cp >= 58 and cp <= 64)
+        or (cp >= 91 and cp <= 96)
+        or (cp >= 123 and cp <= 126)
+    ):
         return True
     cat = unicodedata.category(char)
     if cat.startswith("P"):
@@ -56,8 +60,8 @@ def whitespace_tokenize(text):
 
 
 # TODO Lemmatization
-@basic_timer
-@debug_logger
+@log_time
+@log_fn
 def clean(text, token=False):
     """전처리 함수
 
@@ -76,12 +80,12 @@ def clean(text, token=False):
         if _is_control(char) | _is_punctuation(char):
             continue
         if _is_whitespace(char):
-            output.append(' ')
+            output.append(" ")
         else:
             output.append(char)
 
-    output = ''.join(output)
+    output = "".join(output)
     tokens = whitespace_tokenize(output)
     if not token:
-        return ' '.join(tokens)
+        return " ".join(tokens)
     return tokens
