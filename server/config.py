@@ -29,7 +29,6 @@ class DevConfig(Config):
     # FLASK
     HOSTS = "0.0.0.0"
     PORT = 8001
-    SERVER_NAME = f"{HOSTS}:{PORT}"
     DEBUG = True
     TESTING = True
     VERSION = 0.3
@@ -46,7 +45,7 @@ class DevConfig(Config):
 
 
 class ProdConfig(Config):
-    LOG_LEVEL = None
+    LOG_LEVEL = "INFO"
 
     # FLASK
     HOST = "0.0.0.0"

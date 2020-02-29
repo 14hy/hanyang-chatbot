@@ -2,7 +2,7 @@
 venv
 node_modules
 lib
-cert
 secret_key
 .DS_Store
 __pycache__
+cert*
