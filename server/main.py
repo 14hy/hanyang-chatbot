@@ -1,11 +1,13 @@
-from flask import Flask
-from utils import Config
 from logging import Logger
+
+from flask import Flask
 from flask_cors import CORS
+
 from api import api
+from utils import Config
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = Config.SECRET_KEY
+app.config["SECRET_KEY"] = Config.SECRET_KEY
 CORS(app)
 
 logger: Logger = app.logger

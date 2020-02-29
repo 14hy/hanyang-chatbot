@@ -3,6 +3,7 @@ https://github.com/google-research/bert
 tokenization.py 전처리 코드 포함
 """
 import unicodedata
+
 from utils import *
 
 

@@ -1,5 +1,5 @@
-from lib.flask_restplus import Resource, Namespace, reqparse, fields
 from engine.services.shuttle import ShuttleBus
+from lib.flask_restplus import Resource, Namespace, reqparse, fields
 
 shuttle_bus = ShuttleBus()
 ns_shuttle = Namespace("service/shuttle", description="Service/Shuttle")
@@ -20,7 +20,6 @@ station_list = [
 
 @ns_shuttle.route("/")
 class Bus(Resource):
-
     @ns_shuttle.doc(
         "현재 시각을 기준으로 셔틀버스를 조회합니다.",
         params={

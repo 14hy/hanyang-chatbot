@@ -1,5 +1,5 @@
-from utils import Singleton
 from engine.preprocessor import *
+from utils import Singleton
 
 
 class ChatBot(metaclass=Singleton):

@@ -15,8 +15,8 @@ class Config(object):
     DESC = ""
 
     # FireStore
-    PROJECT_ID = "cool-benefit-185923"
-    SERVICE_ACCOUNT = "cool-benefit-185923.json"
+    PROJECT_ID = "hanyang-chatbot-7008b48daaa9"
+    SERVICE_ACCOUNT = "hanyang-chatbot-7008b48daaa9.json"
 
     # paths
     SHUTTLE_DIR = "shuttle_files"
@@ -35,6 +35,6 @@ class ProdConfig(Config):
     DEBUG = False
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(BASE_DIR)
     print(Config.SECRET_KEY)

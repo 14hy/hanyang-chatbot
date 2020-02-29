@@ -1,14 +1,14 @@
-from functools import wraps
-from time import time
-from datetime import timezone, timedelta
 import logging
-from pprint import pformat
 import os
+from datetime import timezone, timedelta
+from functools import wraps
+from pprint import pformat
+from time import time
 
 
 def is_dev():
     env = os.environ.get("env", "")
-    return env.lower() == "dev"
+    return env.lower() == "dev" or env.lower() == "local"
 
 
 if is_dev():
@@ -18,7 +18,7 @@ else:
 
 KST = timezone(offset=timedelta(hours=9))
 
-formatter = logging.Formatter("[%(asctime)s] - %(name)s - %(levelname)s %(message)s")
+formatter = logging.Formatter("[%(levelname)s][%(asctime)s] %(message)s")
 
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)

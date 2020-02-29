@@ -1,6 +1,7 @@
 import enum
 from copy import deepcopy
 from datetime import datetime
+
 import yaml
 
 from utils import *
@@ -62,7 +63,7 @@ class ShuttleBus(object):
     # 학기 중, 계절학기 첫 차는 순환 운행
     # 시작시간, 끝나는 시간, 시즌, 휴일, 노선에 따라 차등 적용
 
-    def __init__(self, yml='template'):
+    def __init__(self, yml="template"):
         def _load_recipe():
             with open(f"{Config.SHUTTLE_DIR}/{yml}.yml", mode="r") as f:
                 recipe = yaml.load(f, Loader)
@@ -250,6 +251,7 @@ class ShuttleBus(object):
 
 if __name__ == "__main__":
     from pprint import pprint
+
     Config.SHUTTLE_DIR = "../../shuttle_files"
 
     sb = ShuttleBus("template")

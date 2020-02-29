@@ -1,8 +1,9 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 from google.cloud.firestore_v1 import Client
-from utils import *
+
 from config import Config
+from utils import *
 
 
 def connect_db(service_account, project_id):
@@ -19,7 +20,7 @@ def connect_db(service_account, project_id):
         )
         # Use the application default credentials
         cred = credentials.ApplicationDefault()
-        firebase_admin.initialize_app(cred, {"projectId": project_id, })
+        firebase_admin.initialize_app(cred, {"projectId": project_id,})
     finally:
         client: Client = firestore.client()
         logger.info("firestore connected")

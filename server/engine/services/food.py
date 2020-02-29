@@ -1,7 +1,9 @@
-import requests
 from enum import Enum
-from lxml.html import fromstring
+
+import requests
 from lxml.cssselect import CSSSelector
+from lxml.html import fromstring
+
 from utils import *
 
 
