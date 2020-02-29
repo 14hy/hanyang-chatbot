@@ -85,6 +85,7 @@ class ShuttleBus(object):
             seconds=now.second,
         )
 
+    @log_time
     def get(self, season, weekend, **kwargs):
         try:
             if isinstance(weekend, (str,)):

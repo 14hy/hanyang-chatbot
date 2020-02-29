@@ -8,3 +8,4 @@ rivescript == 1.14.9
 lxml == 4.4.1
 cssselect == 1.1.0
 pyyaml == 5.3
+werkzeug == 0.16.1

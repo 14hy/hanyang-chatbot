@@ -18,7 +18,7 @@ else:
 
 KST = timezone(offset=timedelta(hours=9))
 
-formatter = logging.Formatter("[%(levelname)s][%(asctime)s] %(message)s")
+formatter = logging.Formatter("[%(asctime)s][%(levelname)s][%(pathname)s]%(message)s")
 
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
@@ -48,7 +48,7 @@ def log_fn(fn):
     def wrapper(*args, **kwargs):
         ret = fn(*args, **kwargs)
         logger.info(
-            f"in {fn.__name__}, args: {pformat(args)}, kwargs: {pformat(kwargs)}, return: {pformat(ret)}"
+            f"[{fn.__name__}]args: {pformat(args)}, kwargs: {pformat(kwargs)}, return: {pformat(ret)}"
         )
         return ret
 
@@ -63,7 +63,7 @@ def log_time(fn):
         start = time()
         ret = fn(*args, **kwargs)
         end = time()
-        logger.info(f"in {fn.__name__}, Total execution time: {end - start}")
+        logger.info(f"[{fn.__name__}]Total execution time: {end - start}")
         return ret
 
     return wrapper

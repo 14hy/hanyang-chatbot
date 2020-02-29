@@ -7,14 +7,13 @@ from api import api
 from utils import Config
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = Config.SECRET_KEY
+app.config.from_object(Config)
 CORS(app)
 
 logger: Logger = app.logger
 logger.setLevel(Config.LOG_LEVEL)
 logger.propagate = False
 
-# from main import app
 api.init_app(app)
 
 if __name__ == "__main__":

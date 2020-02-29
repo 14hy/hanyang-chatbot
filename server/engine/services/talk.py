@@ -1,51 +1,14 @@
+import random
+from collections import OrderedDict
+
 from db.connect import client
 from db.models import UserInput
 from engine.preprocessor.n_gram import *
-from collections import OrderedDict
-import random
-
-collection_qna = client.collection("qna")
+from utils import *
 
 
-def _calc_jaacard(a, b):
-    def __calc_jaccard(a_grams, b_grams):
-        visited = []
-        num_union = max(len(a_grams), len(b_grams))  # output 뺀 것
-        num_joint = 0
-        for gram_a in a_grams:
-            for gram_b in b_grams:
-                if (gram_a == gram_b) and (gram_a not in visited):
-                    num_joint += 1
-                    visited.append(gram_a)
-
-        return num_joint / num_union
-
-    # Scores
-    score_unigram = 0
-    score_bigram = 0
-    score_trigram = 0
-
-    # Get scores
-
-    grams_a = unigram(a)
-    grams_b = unigram(b)
-    if len(grams_a) > 0 and len(grams_b) > 0:
-        score_unigram = __calc_jaccard(grams_a, grams_b)
-    grams_a = bigram(a)
-    grams_b = bigram(b)
-    if len(grams_a) > 1 and len(grams_b) > 1:
-        score_bigram = __calc_jaccard(grams_a, grams_b)
-    grams_a = trigram(a)
-    grams_b = trigram(b)
-    if len(grams_a) > 2 and len(grams_b) > 2:
-        score_trigram = __calc_jaccard(grams_a, grams_b)
-
-    return score_unigram + score_bigram + score_trigram
-
-
-stream_qna = collection_qna.stream()
-
-
+@log_time
+@log_fn
 def get_response(user_input: UserInput):
     ui = user_input.to_dict()
     a = ui["text"]
@@ -86,6 +49,47 @@ def get_response(user_input: UserInput):
         ret = random.choice(top_answers)
         return ret
 
+
+collection_qna = client.collection("qna")
+
+
+def _calc_jaacard(a, b):
+    def __calc_jaccard(a_grams, b_grams):
+        visited = []
+        num_union = max(len(a_grams), len(b_grams))  # output 뺀 것
+        num_joint = 0
+        for gram_a in a_grams:
+            for gram_b in b_grams:
+                if (gram_a == gram_b) and (gram_a not in visited):
+                    num_joint += 1
+                    visited.append(gram_a)
+
+        return num_joint / num_union
+
+    # Scores
+    score_unigram = 0
+    score_bigram = 0
+    score_trigram = 0
+
+    # Get scores
+
+    grams_a = unigram(a)
+    grams_b = unigram(b)
+    if len(grams_a) > 0 and len(grams_b) > 0:
+        score_unigram = __calc_jaccard(grams_a, grams_b)
+    grams_a = bigram(a)
+    grams_b = bigram(b)
+    if len(grams_a) > 1 and len(grams_b) > 1:
+        score_bigram = __calc_jaccard(grams_a, grams_b)
+    grams_a = trigram(a)
+    grams_b = trigram(b)
+    if len(grams_a) > 2 and len(grams_b) > 2:
+        score_trigram = __calc_jaccard(grams_a, grams_b)
+
+    return score_unigram + score_bigram + score_trigram
+
+
+stream_qna = list(collection_qna.stream())
 
 if __name__ == "__main__":
     test_ui = UserInput("너 뭐냐")
