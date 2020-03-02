@@ -4,6 +4,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class Config(object):
+    BASE_DIR = BASE_DIR
     LOG_LEVEL = None
 
     # FLASK
@@ -35,13 +36,14 @@ class DevConfig(Config):
     TITLE = "hanyang-chatbot-api"
     DESC = ""
     SECRET_KEY = open(f"{BASE_DIR}/cert/secret_key", mode="r").readline()
+    JWT_SECRET_KEY = SECRET_KEY
 
     # FireStore
     PROJECT_ID = ""
     SERVICE_ACCOUNT = f"{BASE_DIR}/cert/service_account.json"
 
     # paths
-    SHUTTLE_DIR = "shuttle_files"
+    SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
 
 
 class ProdConfig(Config):
@@ -55,13 +57,14 @@ class ProdConfig(Config):
     TITLE = "hanyang-chatbot-api"
     DESC = ""
     SECRET_KEY = open(f"{BASE_DIR}/cert/secret_key", mode="r").readline()
+    JWT_SECRET_KEY = SECRET_KEY
 
     # FireStore
     PROJECT_ID = "cool-benefit-185923"
     SERVICE_ACCOUNT = ""
 
     # paths
-    SHUTTLE_DIR = "shuttle_files"
+    SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
 
 
 if __name__ == "__main__":

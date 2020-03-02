@@ -1,4 +1,4 @@
-from lib.flask_restplus import Resource, Namespace, reqparse
+from flask_restplus import Resource, Namespace, reqparse
 from engine.services.food import get_recipe, Restaurants
 from datetime import datetime
 from utils import *

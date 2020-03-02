@@ -8,6 +8,6 @@ collection = client.collection("qna")
 def add_qa(question, answer):
     question = clean(question)
     answer = QA(question=question, answer=answer)
-    ret = collection.add(answer.to_dict())
+    ret: QA = collection.add(answer.to_dict())
 
     return ret

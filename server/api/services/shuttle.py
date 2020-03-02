@@ -1,5 +1,5 @@
 from engine.services.shuttle import ShuttleBus
-from lib.flask_restplus import Resource, Namespace, reqparse, fields
+from flask_restplus import Resource, Namespace, reqparse, fields
 
 shuttle_bus = ShuttleBus()
 ns_shuttle = Namespace("service/shuttle", description="Service/Shuttle")

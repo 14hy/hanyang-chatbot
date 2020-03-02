@@ -1,4 +1,4 @@
-from lib.flask_restplus import Resource, Namespace
+from flask_restplus import Resource, Namespace
 from engine.preprocessor.clean import *
 from engine.services.talk import *
 from db.connect import client

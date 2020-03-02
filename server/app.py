@@ -2,12 +2,14 @@ from logging import Logger
 
 from flask import Flask
 from flask_cors import CORS
+from flask_jwt_simple import JWTManager
 
 from api import api
 from utils import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
+jwt = JWTManager(app)
 CORS(app)
 
 logger: Logger = app.logger

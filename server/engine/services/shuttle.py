@@ -1,10 +1,11 @@
 import enum
 from copy import deepcopy
-from datetime import datetime
+from pathlib import Path
 
 import yaml
 
 from utils import *
+import json
 
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
@@ -40,6 +41,19 @@ class WeekEnd(enum.Enum):
     휴일 = 1
 
 
+def _load_recipe(target):
+    with open(f"{Config.SHUTTLE_DIR}/{target}.yml", mode="r") as f:
+        recipe = yaml.load(f, Loader)
+    assert recipe is not None
+    return recipe
+
+
+def _load_manage():
+    with open(f"{Config.SHUTTLE_DIR}/manage.json", mode="r") as f:
+        data = json.load(f)
+    return data
+
+
 class ShuttleBus(object):
     """
     # 정류장의 종류
@@ -63,14 +77,10 @@ class ShuttleBus(object):
     # 학기 중, 계절학기 첫 차는 순환 운행
     # 시작시간, 끝나는 시간, 시즌, 휴일, 노선에 따라 차등 적용
 
-    def __init__(self, yml="template"):
-        def _load_recipe():
-            with open(f"{Config.SHUTTLE_DIR}/{yml}.yml", mode="r") as f:
-                recipe = yaml.load(f, Loader)
-            assert recipe is not None
-            return recipe
+    def __init__(self, target=None):
+        self.manage = _load_manage()
 
-        self.recipe = _load_recipe
+        self.recipe = _load_recipe(target or self.manage["target"])
 
     def get_current(self):
         def _check_season(_):
@@ -99,6 +109,28 @@ class ShuttleBus(object):
         table = self._make_table(season.value, weekend.value)
         return self._get(table, timedelta(**kwargs))
 
+    @staticmethod
+    def make_recipe(target, data):
+        with open(f"{Config.SHUTTLE_DIR}/{target}.yml", mode="w") as f:
+            yaml.dump(data, stream=f)
+        return True
+
+    @staticmethod
+    def get_recipe(target=None):
+        p = Path(Config.SHUTTLE_DIR)
+        if target is None:
+            target = "*"
+
+        recipes = []
+        for target in p.glob(f"{target}.yml"):
+            recipes.append(_load_recipe("".join(str(target.name).split(".")[:-1])))
+        ret = {"recipes": recipes}
+        return ret
+
+    @staticmethod
+    def get_manage():
+        return _load_manage()
+
     def _make_table(self, season, weekend):
         """
 
@@ -112,7 +144,7 @@ class ShuttleBus(object):
             ret = f"{list(Season)[s].name}_{list(WeekEnd)[w].name}_{list(Bus)[b].name}"
             return ret
 
-        recipe = self.recipe()
+        recipe = self.recipe
 
         순환노선 = recipe.get(_get_recipe_key(season, weekend, 0), [])
         예술인 = recipe.get(_get_recipe_key(season, weekend, 1), [])
