@@ -1,12 +1,11 @@
 from datetime import datetime
 
 from flask_jwt_simple import jwt_required
+from flask_restplus import Resource, Namespace, reqparse
 from google.cloud.firestore_v1 import CollectionReference, Query
 
 from engine.admin import add_qa, client
-from flask_restplus import Resource, Namespace, reqparse
-
-from utils import get_response
+from utils import KST
 
 ns_admin_add = Namespace("admin/qa", description="질문을 추가 합니다.")
 
@@ -61,7 +60,9 @@ class QA(Resource):
         elapsed_time, doc = add_qa(question=question, answer=answer)
         return (
             {
-                "elapsed_time": str(datetime.fromtimestamp(elapsed_time.seconds)),
+                "elapsed_time": str(
+                    datetime.fromtimestamp(elapsed_time.seconds, tz=KST)
+                ),
                 "doc_id": doc.id,
             },
             201,
@@ -78,7 +79,9 @@ class QA(Resource):
         elapsed_time = collection.document(doc_id).delete()
         return (
             {
-                "elapsed_time": str(datetime.fromtimestamp(elapsed_time.seconds)),
+                "elapsed_time": str(
+                    datetime.fromtimestamp(elapsed_time.seconds, tz=KST)
+                ),
                 "doc_id": doc_id,
             },
             202,

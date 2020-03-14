@@ -1,4 +1,4 @@
-from engine.services.talk import _calc_jaacard, get_response
+from engine.services.talk import _calc_jaacard
 
 
 def test__calc_jaccard():
