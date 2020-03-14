@@ -27,7 +27,7 @@ if not is_dev():
 
 
 @ns_food.route("/")
-class Bus(Resource):
+class Food(Resource):
     @ns_food.doc(
         "오늘의 식단을 가져옵니다.", params={"restaurant": "교직원식당, 학생식당, 창의인재원식당, 푸드코트, 창업보육센터"}
     )

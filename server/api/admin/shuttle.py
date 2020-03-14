@@ -11,45 +11,44 @@ ns_admin_shuttle = Namespace("admin/shuttle", description="셔틀버스 조작")
 
 @ns_admin_shuttle.route("/edit")
 class Edit(Resource):
-    @ns_admin_shuttle.doc("셔틀버스 조작", params={"target": "target"})
+    @ns_admin_shuttle.doc(
+        "셔틀버스 조작",
+        params={"season": "학기중, 계절, 방학", "bus": "순환노선, 한대앞, 예술인", "weekend": "월금, 휴일"},
+    )
     @jwt_required
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("target", type=str, help="", required=False)
+        parser.add_argument("season", type=str, required=True)
+        parser.add_argument("bus", type=str, required=True)
+        parser.add_argument("weekend", type=str, required=True)
         args = parser.parse_args(strict=True)
-        return ShuttleBus.get_recipe(args.get("target")), 200
+        season = args.get("season")
+        bus = args.get("bus")
+        weekend = args.get("weekend")
+        table = ShuttleBus.get_table(season, bus, weekend), 200
+        return {"data": table}
 
-    @ns_admin_shuttle.doc("셔틀버스 조작", params={"target": "target", "data": "data"})
+    @ns_admin_shuttle.doc(
+        "셔틀버스 조작",
+        params={
+            "data": "table data, list of list",
+            "season": "학기중, 계절, 방학",
+            "bus": "순환노선, 한대앞, 예술인",
+            "weekend": "월금, 휴일",
+        },
+    )
     @jwt_required
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("target", type=str, help="target")
-        parser.add_argument("data", type=str, help="data")
+        parser.add_argument("data", type=str, help="data", required=True)
+        parser.add_argument("season", type=str, required=True)
+        parser.add_argument("bus", type=str, required=True)
+        parser.add_argument("weekend", type=str, required=True)
         args = parser.parse_args(strict=True)
 
-        target = args.target
-        data = args.data
-        if ShuttleBus.make_recipe(target, data):
-            return {"target": target, "data": data}, 201
-        return 401
+        season = args.get("season")
+        bus = args.get("bus")
+        weekend = args.get("weekend")
+        data = args.get("data")
 
-
-@ns_admin_shuttle.route("/manage")
-class Manage(Resource):
-    @ns_admin_shuttle.doc("현재 설정")
-    @jwt_required
-    def get(self):
-        return ShuttleBus.get_manage(), 200
-
-    @ns_admin_shuttle.doc("설정 하기", params={"target": "target"})
-    @jwt_required
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument("target", type=str, help="target", required=True)
-        args = parser.parse_args(strict=True)
-        manage = ShuttleBus.get_manage()
-        manage["target"] = args.target
-        with open(f"{Config.SHUTTLE_DIR}/manage.json", mode="w") as f:
-            json.dump(manage, f)
-
-        return ShuttleBus.get_manage(), 201
+        return {"updated": ShuttleBus.set_recipe(data, season, bus, weekend)}

@@ -21,3 +21,19 @@ def test_shuttle_bus_get():
     assert res["shuttle_cycle2"] == {"minutes": 30, "seconds": 1, "status": True}
 
     assert sb.get_current() is not None
+
+
+def test_shuttle_bus_get_table():
+    sb = ShuttleBus()
+    table = sb.get_table("학기중", "순환노선", "월금", template="test")
+    assert table[0] == [3, 0, 23, 0, None]
+
+
+def test_shuttle_bus_set_table():
+    sb = ShuttleBus()
+    data = [[8, 50, 21, 50, 30]]
+    ret = sb.set_recipe([[8, 50, 21, 50, 30]], "방학", "순환노선", "휴일", template="test")
+    assert ret == data
+    data = [[8, 50, 21, 50, None]]
+    ret = sb.set_recipe([[8, 50, 21, 50, None]], "방학", "순환노선", "휴일", template="test")
+    assert ret == data

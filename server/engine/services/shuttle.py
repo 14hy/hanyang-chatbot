@@ -1,5 +1,4 @@
 import enum
-import json
 from copy import deepcopy
 from pathlib import Path
 
@@ -37,12 +36,6 @@ def _load_recipe(target):
     return recipe
 
 
-def _load_manage():
-    with open(f"{Config.SHUTTLE_DIR}/manage.json", mode="r") as f:
-        data = json.load(f)
-    return data
-
-
 class ShuttleBus(object):
     """
     # 정류장의 종류
@@ -66,10 +59,8 @@ class ShuttleBus(object):
     # 학기 중, 계절학기 첫 차는 순환 운행
     # 시작시간, 끝나는 시간, 시즌, 휴일, 노선에 따라 차등 적용
 
-    def __init__(self, target=None):
-        self.manage = _load_manage()
-
-        self.recipe = _load_recipe(target or self.manage["target"])
+    def __init__(self, template=None):
+        self.recipe = _load_recipe(template or "template")
 
     def get_current(self):
         def _check_season(_):
@@ -99,26 +90,43 @@ class ShuttleBus(object):
         return self._get(table, timedelta(**kwargs))
 
     @staticmethod
-    def make_recipe(target, data):
-        with open(f"{Config.SHUTTLE_DIR}/{target}.yml", mode="w") as f:
-            yaml.dump(data, stream=f)
-        return True
+    def set_recipe(data, season, bus, weekend, *, template="template"):
+        assert isinstance(data, list)
+        recipe = _load_recipe(template)
+        recipe[f"{season}_{weekend}_{bus}"] = data
+
+        with open(
+            f"{Config.SHUTTLE_DIR}/{template}.yml", mode="w", encoding="utf-8"
+        ) as f:
+            yaml.dump(recipe, stream=f)
+
+        recipe = _load_recipe(template)
+        return recipe[f"{season}_{weekend}_{bus}"]
 
     @staticmethod
-    def get_recipe(target=None):
+    def get_table(season, bus, weekend, *, template="template"):
         p = Path(Config.SHUTTLE_DIR)
-        if target is None:
-            target = "*"
 
-        recipes = []
-        for target in p.glob(f"{target}.yml"):
-            recipes.append(_load_recipe("".join(str(target.name).split(".")[:-1])))
-        ret = {"recipes": recipes}
+        tables = []
+        for target in p.glob(f"{template}.yml"):
+            tables.append(_load_recipe("".join(str(target.name).split(".")[:-1])))
+
+        table = tables[0]  # don't use template feature
+
+        ret = []
+        for k, v in table.items():
+            # example k: '계절_월금_순환노선'
+            k = k.split("_")
+            if season not in k:
+                continue
+            if bus not in k:
+                continue
+            if weekend not in k:
+                continue
+
+            for each in v or []:
+                ret.append(each)
         return ret
-
-    @staticmethod
-    def get_manage():
-        return _load_manage()
 
     def _make_table(self, season, weekend):
         """
@@ -269,32 +277,3 @@ class ShuttleBus(object):
         output["shuttle_artin2"] = _get_output(shuttle2_artin)
         output["shuttle_station2"] = _get_output(shuttle2_station)
         return output
-
-
-if __name__ == "__main__":
-    from pprint import pprint
-
-    Config.SHUTTLE_DIR = "../../shuttle_files"
-
-    sb = ShuttleBus("template")
-    res = sb.get(season=Season.학기중, weekend=WeekEnd.휴일, hours=20, minutes=46, seconds=0)
-    pprint(res)
-    assert res["station_cycle"] == {"minutes": 14, "seconds": 0, "status": True}
-
-    sb = ShuttleBus("test")
-
-    res = sb.get(season=Season.학기중, weekend=WeekEnd.월금, hours=2, minutes=54, seconds=59)
-
-    pprint(res)
-    # 기숙사 ~ 셔틀콕은 5분, 2시 55분 출발하므로 1초 남아야 정상
-    assert res["dorm_cycle"] == {"minutes": 0, "seconds": 1, "status": True}
-    # 3시에 셔틀콕에 도착하므로, 2시 54분 59초에 5분 1초 남아야 정상
-    assert res["shuttle_cycle"] == {"minutes": 5, "seconds": 1, "status": True}
-    # 셔틀콕 ~ 한대앞역은 10분
-    assert res["station_cycle"] == {"minutes": 15, "seconds": 1, "status": True}
-    # 셔틀콕 ~ 예술인아파트는 15분
-    assert res["artin_cycle"] == {"minutes": 20, "seconds": 1, "status": True}
-    # 셔틀콕 ~ 셔틀콕은 25분
-    assert res["shuttle_cycle2"] == {"minutes": 30, "seconds": 1, "status": True}
-
-    assert sb.get_current() is not None
