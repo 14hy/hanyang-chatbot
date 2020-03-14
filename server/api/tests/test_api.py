@@ -57,3 +57,23 @@ def test_admin_shuttle_edit(client: FlaskClient, jwt_token: str):
                      headers={'Authorization': f'Bearer {jwt_token}'})
     assert res.status_code == 200
     assert res.json.get('data') is not None
+
+
+def test_qa_get(client: FlaskClient, jwt_token: str):
+    res = client.get('/admin/qa/', query_string=[('offset', 0), ('limit', 5)],
+                     headers={'Authorization': f'Bearer {jwt_token}'})
+    assert res.status_code == 200
+    assert res.json.get('data') is not None
+    assert len(res.json.get('data')) == 5
+
+
+def test_qa_add_delete(client: FlaskClient, jwt_token: str):
+    res = client.post("/admin/qa/", query_string=[('question', 'test'), ('answer', 'test')],
+                      headers={'Authorization': f'Bearer {jwt_token}'})
+    assert res.status_code == 201
+
+    doc_id = res.json.get('doc_id')
+    assert doc_id is not None
+    res = client.delete("/admin/qa/", query_string=[('doc_id', doc_id)],
+                        headers={'Authorization': f'Bearer {jwt_token}'})
+    assert res.status_code == 202
