@@ -10,3 +10,4 @@ cssselect
 pyyaml
 gunicorn
 flask-jwt-simple
+pytest

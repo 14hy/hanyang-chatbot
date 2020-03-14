@@ -1,27 +1,16 @@
 import enum
+import json
 from copy import deepcopy
 from pathlib import Path
 
 import yaml
 
 from utils import *
-import json
 
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
     from yaml import Loader, Dumper
-
-
-class Time(enum.Enum):
-    학기중 = 0
-    월금 = 0
-    순환노선 = 0
-    계절 = 1
-    휴일 = 1
-    한대앞 = 1
-    방학 = 2
-    예술인 = 2
 
 
 class Season(enum.Enum):
