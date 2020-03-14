@@ -9,10 +9,21 @@ from utils import KST
 
 ns_admin_add = Namespace("admin/qa", description="질문을 추가 합니다.")
 
+parser = ns_admin_add.parser()
+parser.add_argument(
+    "Authorization",
+    type=str,
+    location="headers",
+    help="Bearer jwt token",
+    required=True,
+)
+
 
 @ns_admin_add.route("/")
 class QA(Resource):
-    @ns_admin_add.doc("새로운 질문을 추가합니다.", params={"limit": "limit", "offset": "offset"})
+    @ns_admin_add.doc(
+        "새로운 질문을 추가합니다.", params={"limit": "limit", "offset": "offset"}, parser=parser
+    )
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument("limit", type=int, help="limit")
@@ -45,7 +56,9 @@ class QA(Resource):
         }
 
     @ns_admin_add.doc(
-        "새로운 질문을 추가합니다.", params={"question": "question", "answer": "answer"}
+        "새로운 질문을 추가합니다.",
+        params={"question": "question", "answer": "answer"},
+        parser=parser,
     )
     @jwt_required
     def post(self):

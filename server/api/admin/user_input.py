@@ -9,11 +9,20 @@ from utils import KST
 
 ns_admin_userinput = Namespace("admin/userinput", description="유저 입")
 
+parser = ns_admin_userinput.parser()
+parser.add_argument(
+    "Authorization",
+    type=str,
+    location="headers",
+    help="Bearer jwt token",
+    required=True,
+)
+
 
 @ns_admin_userinput.route("/")
 class Edit(Resource):
     @ns_admin_userinput.doc(
-        "유저 입력 보기", params={"offset": "offset", "limit": "limit"},
+        "유저 입력 보기", params={"offset": "offset", "limit": "limit"}, parser=parser
     )
     @jwt_required
     def get(self):

@@ -19,15 +19,17 @@ def client():
 @pytest.fixture
 def jwt_token(client: FlaskClient):
     res = client.post(
-        "/admin/login/",
-        query_string=[("username", "username"), ("password", "password")],
+        "/admin/login/", query_string=[("username", "dev"), ("password", "dev")],
     )
     yield res.json["jwt"]
 
 
 # fmt: off
 def test_admin_login(client: FlaskClient):
-    res = client.post('/admin/login/', query_string=[('username', 'username'), ('password', 'password')])
+    res = client.post('/admin/login/', query_string=[('username', 'wrong'), ('password', 'wrong')])
+    assert res.status_code == 401
+
+    res = client.post('/admin/login/', query_string=[('username', 'dev'), ('password', 'dev')])
     assert res.status_code == 200
     assert res.json.get('jwt') is not None
 

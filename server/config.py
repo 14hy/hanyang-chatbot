@@ -45,6 +45,9 @@ class DevConfig(Config):
     # paths
     SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
 
+    # login token
+    LOGIN_TOKEN = "baf06612f9fc2e34694ca1b4254e4a8f368ea6c80f0f901743062a3a482b17ff"
+
 
 class ProdConfig(Config):
     LOG_LEVEL = "INFO"
@@ -65,6 +68,9 @@ class ProdConfig(Config):
 
     # paths
     SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
+
+    # login token
+    LOGIN_TOKEN = "4373671fc1e3dd6517f264c30e70e904016f668b422b210f7083453eec1b722d"
 
 
 if __name__ == "__main__":

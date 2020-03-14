@@ -8,12 +8,22 @@ from utils import *
 
 ns_admin_shuttle = Namespace("admin/shuttle", description="셔틀버스 조작")
 
+parser = ns_admin_shuttle.parser()
+parser.add_argument(
+    "Authorization",
+    type=str,
+    location="headers",
+    help="Bearer jwt token",
+    required=True,
+)
+
 
 @ns_admin_shuttle.route("/edit")
 class Edit(Resource):
     @ns_admin_shuttle.doc(
         "셔틀버스 조작",
         params={"season": "학기중, 계절, 방학", "bus": "순환노선, 한대앞, 예술인", "weekend": "월금, 휴일"},
+        parser=parser,
     )
     @jwt_required
     def get(self):
@@ -36,6 +46,7 @@ class Edit(Resource):
             "bus": "순환노선, 한대앞, 예술인",
             "weekend": "월금, 휴일",
         },
+        parser=parser,
     )
     @jwt_required
     def post(self):
