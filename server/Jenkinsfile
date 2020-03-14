@@ -1,0 +1,16 @@
+pipeline {
+    agent { dockerfile { dir "server" } }
+    stages {
+      stage('Test') {
+        steps {
+          withCredentials([file(credentialsId: 'hy-flask', variable: 'FLASK_KEY'),
+                           file(credentialsId: 'hy-gcp', variable: 'GCP_KEY')]) {
+          sh "cp \$FLASK_KEY \$PWD/server/cert"
+          sh "cp \$GCP_KEY \$PWD/server/cert"
+          sh 'python --version'
+          sh 'python -m pytest'
+          }
+        }
+      }
+    }
+}
