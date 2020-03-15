@@ -15,8 +15,10 @@ class QA(object):
 
 
 class UserInput(object):
-    def __init__(self, text):
+    def __init__(self, text, answer=None, create_time=None):
         self.text: str = text
+        self.answer: str = answer
+        self.create_time: int = create_time
 
     @staticmethod
     def from_dict(source):

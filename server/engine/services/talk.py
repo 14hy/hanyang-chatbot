@@ -12,11 +12,11 @@ from utils import *
 def get_response(user_input: UserInput):
     ui = user_input.to_dict()
     a = ui["text"]
-    global stream_qna
+    global qna_collection
 
     distance_dict = {}
 
-    for qna in stream_qna:
+    for qna in qna_collection:
         qna = qna.to_dict()
         question = qna["question"]
         answer = qna["answer"]
@@ -44,10 +44,10 @@ def get_response(user_input: UserInput):
                 break
 
     if not top_answers:
-        return "잘 모르겠다냥~"
-    else:
-        ret = random.choice(top_answers)
-        return ret
+        return None
+
+    ret = random.choice(top_answers)
+    return ret
 
 
 collection_qna = client.collection("qna")
@@ -89,8 +89,4 @@ def _calc_jaacard(a, b):
     return score_unigram + score_bigram + score_trigram
 
 
-stream_qna = list(collection_qna.stream())
-
-if __name__ == "__main__":
-    test_ui = UserInput("너 뭐냐")
-    print(get_response(test_ui))
+qna_collection = list(collection_qna.stream())

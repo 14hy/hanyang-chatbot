@@ -1,0 +1,51 @@
+pipeline {
+  agent none
+  stages {
+    stage('Test') {
+      agent {
+        dockerfile {
+            filename "Dockerfile"
+            dir "server"
+        }
+      }
+      steps {
+        withCredentials([file(credentialsId: 'hy-flask', variable: 'FLASK_KEY'),
+                         file(credentialsId: 'hy-gcp', variable: 'GCP_KEY')]) {
+        sh "cp \$FLASK_KEY \$PWD/server/cert"
+        sh "cp \$GCP_KEY \$PWD/server/cert"
+        sh 'python --version'
+        sh 'env=dev python -m pytest'
+        }
+      }
+    }
+    stage('Build') {
+      agent any
+      steps {
+        dir("server") {
+          sh "docker build . --tag=hanyang-chatbot"
+        }
+      }
+    }
+    stage('Deploy-ready') {
+      agent any
+      steps {
+        script {
+          try {
+            sh "docker rm hanyang-chatbot -f"
+          } catch (e) {
+            sh "echo deploy-rm catched an error"
+          }
+        }
+      }
+    }
+    stage('Deploy-run') {
+      agent any
+      steps {
+        withCredentials([file(credentialsId: 'gcp-mhlee', variable: 'SSH_MHLEE')]) {
+          sh "cp \$SSH_MHLEE \$PWD"
+          sh 'echo "cd ~/hanyang-chatbot/server; sudo chmod +x deploy.sh; ./deploy.sh \$GIT_BRANCH" | ssh -p 22 -i \$PWD/gcp-minhyeok_lee95 minhyeok_lee95@mhlee.engineer "bash -s"'
+        }
+      }
+    }
+  }
+}

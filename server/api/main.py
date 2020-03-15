@@ -1,7 +1,8 @@
-from flask_restplus import Resource, Namespace
+from flask_restx import Resource, Namespace
+
+from db.connect import client
 from engine.preprocessor.clean import *
 from engine.services.talk import *
-from db.connect import client
 
 ns = Namespace(name="", description="Restful API")
 
@@ -15,7 +16,7 @@ class Index(Resource):
         text = clean(text, token=False)
         ui = UserInput(text=text)
         ret: dict = get_response(ui)
-
+        ui.answer = ret
         user_input.add(ui.to_dict())
 
-        return {"answer": ret}, 200
+        return {"answer": ret or "잘 모르겠다냥.."}, 200

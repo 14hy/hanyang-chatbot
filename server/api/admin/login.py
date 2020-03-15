@@ -1,8 +1,24 @@
-from flask_jwt_simple import create_jwt, jwt_required, get_jwt_identity
+import hashlib
 
-from flask_restplus import Resource, Namespace, reqparse
+from flask_jwt_simple import (
+    create_jwt,
+    jwt_required,
+    get_jwt,
+)
+from flask_restx import Resource, Namespace, reqparse
+
+from utils import Config, logger
 
 ns_admin_login = Namespace("admin/login", description="로그인")
+
+parser = ns_admin_login.parser()
+parser.add_argument(
+    "Authorization",
+    type=str,
+    location="headers",
+    help="Bearer jwt token",
+    required=True,
+)
 
 
 @ns_admin_login.route("/")
@@ -14,26 +30,27 @@ class Login(Resource):
         parser.add_argument("password", type=str, help="password")
         args = parser.parse_args(strict=True)
 
-        def _validate_args(args):
-            pass
+        def _validate(args):
+            username = args.get("username")
+            password = args.get("password")
+            up = username + password
 
-        _validate_args(args)
+            logger.info(f"Authorizing with {Config.LOGIN_TOKEN}")
+            if hashlib.sha256(up.encode()).hexdigest() != Config.LOGIN_TOKEN:
+                return False
 
-        ret = {"jwt": create_jwt(identity=args["username"])}
+            return True
+
+        if not _validate(args):
+            return {}, 401
+
+        jwt_token = create_jwt(identity=args["username"])
+        ret = {"jwt": jwt_token}
         return ret, 200
 
     @ns_admin_login.doc(
-        "로그인 테스트", params={"username": "username", "password": "password"}
+        "로그인 테스트", parser=parser,
     )
     @jwt_required
     def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument("username", type=str, help="username")
-        parser.add_argument("password", type=str, help="password")
-        args = parser.parse_args(strict=True)
-
-        def _validate_args(args):
-            pass
-
-        _validate_args(args)
-        return {"username": get_jwt_identity()}, 200
+        return {"username": get_jwt()}, 200
