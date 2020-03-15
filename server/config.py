@@ -19,11 +19,10 @@ class Config(object):
 
     # FireStore
     PROJECT_ID = "cool-benefit-185923"
-    SERVICE_ACCOUNT = ""
+    SERVICE_ACCOUNT = f"{BASE_DIR}/cert/service_account.json"
 
     # paths
     SHUTTLE_DIR = "shuttle_files"
-    APPLICATION_ROOT = None
 
 
 class DevConfig(Config):
@@ -34,15 +33,11 @@ class DevConfig(Config):
     PORT = 8001
     DEBUG = True
     TESTING = True
-    VERSION = 0.3
+    VERSION = 0.4
     TITLE = "hanyang-chatbot-api"
     DESC = ""
     SECRET_KEY = open(f"{BASE_DIR}/cert/secret_key", mode="r").readline()
     JWT_SECRET_KEY = SECRET_KEY
-
-    # FireStore
-    PROJECT_ID = ""
-    SERVICE_ACCOUNT = f"{BASE_DIR}/cert/service_account.json"
 
     # paths
     SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
@@ -50,7 +45,6 @@ class DevConfig(Config):
     # login
     LOGIN_TOKEN = "baf06612f9fc2e34694ca1b4254e4a8f368ea6c80f0f901743062a3a482b17ff"
     JWT_EXPIRES = datetime.timedelta(days=365)
-    APPLICATION_ROOT = ""
 
 
 class ProdConfig(Config):
@@ -58,17 +52,13 @@ class ProdConfig(Config):
 
     # FLASK
     HOST = "0.0.0.0"
-    PORT = 8001
+    PORT = 5000
     DEBUG = False
-    VERSION = 0.3
+    VERSION = 0.4
     TITLE = "hanyang-chatbot-api"
     DESC = ""
     SECRET_KEY = open(f"{BASE_DIR}/cert/secret_key", mode="r").readline()
     JWT_SECRET_KEY = SECRET_KEY
-
-    # FireStore
-    PROJECT_ID = "cool-benefit-185923"
-    SERVICE_ACCOUNT = ""
 
     # paths
     SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
@@ -76,7 +66,6 @@ class ProdConfig(Config):
     # login
     LOGIN_TOKEN = "4373671fc1e3dd6517f264c30e70e904016f668b422b210f7083453eec1b722d"
     JWT_EXPIRES = datetime.timedelta(hours=1)
-    APPLICATION_ROOT = ""
 
 
 if __name__ == "__main__":
