@@ -16,7 +16,7 @@ class Restaurants(Enum):
 
 
 @log_time
-def get_recipe(restaurant: Restaurants, url="https://www.hanyang.ac.kr/web/www/re"):
+def get_recipe(restaurant, url="https://www.hanyang.ac.kr/web/www/re"):
     """식단 받아오기
 
     :return:

@@ -1,3 +1,4 @@
 runtime: python37
 service: "hanyang-chatbot"
 instance_class: F1
+entrypoint: gunicorn -b :8001 -w 1 app:app

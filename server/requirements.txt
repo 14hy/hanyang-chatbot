@@ -1,5 +1,5 @@
-werkzeug <= 0.16.1
-flask-restx
+werkzeug == 0.16.1
+flask-restplus
 flask-cors
 cmake
 pytz
@@ -10,5 +10,3 @@ cssselect
 pyyaml
 gunicorn
 flask-jwt-simple
-pytest
-dateutils

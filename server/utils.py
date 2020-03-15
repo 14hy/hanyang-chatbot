@@ -1,6 +1,6 @@
 import logging
 import os
-from datetime import timezone, timedelta
+from datetime import timezone, timedelta, datetime
 from functools import wraps
 from pprint import pformat
 from time import time
@@ -73,3 +73,12 @@ def log_time(fn):
         return ret
 
     return wrapper
+
+
+def get_response(data):
+    elapsed_time, document_ref = data
+    res = {}
+
+    res["elapsed_time"] = str(datetime.fromtimestamp(elapsed_time.seconds))
+    res["document_ref"] = str(document_ref.path)
+    return res

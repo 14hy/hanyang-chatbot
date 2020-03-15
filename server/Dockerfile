@@ -15,3 +15,7 @@ RUN pip3 install -r ./requirements.txt
 
 # clean up
 RUN rm -rf /tmp
+
+ENTRYPOINT ["python3"]
+CMD ["main.py"]
+

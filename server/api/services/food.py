@@ -1,4 +1,4 @@
-from flask_restx import Resource, Namespace, reqparse
+from flask_restplus import Resource, Namespace, reqparse
 from engine.services.food import get_recipe, Restaurants
 from datetime import datetime
 from utils import *
@@ -27,7 +27,7 @@ if not is_dev():
 
 
 @ns_food.route("/")
-class Food(Resource):
+class Bus(Resource):
     @ns_food.doc(
         "오늘의 식단을 가져옵니다.", params={"restaurant": "교직원식당, 학생식당, 창의인재원식당, 푸드코트, 창업보육센터"}
     )

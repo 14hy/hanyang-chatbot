@@ -1,0 +1,35 @@
+sudo: false
+language: python
+env:
+# Make sure gcloud command is on our PATH and the App Engine SDK is in the Python path
+- GAE_PYTHONPATH=${HOME}/.cache/google_appengine PATH=$PATH:${HOME}/google-cloud-sdk/bin PYTHONPATH=${PYTHONPATH}:${GAE_PYTHONPATH} CLOUDSDK_CORE_DISABLE_PROMPTS=1
+before_install:
+# Move to server directory
+- cd server
+# Decrypt the credentials
+- openssl aes-256-cbc -K $encrypted_09a614cd74c8_key -iv $encrypted_09a614cd74c8_iv -in cert.tar.gz.enc -out ./cert.tar.gz -d
+  # Install Google App Engine Python SDK
+- if [ ! -d "${GAE_PYTHONPATH}" ]; then
+    python scripts/fetch_gae_sdk.py $(dirname "${GAE_PYTHONPATH}");
+  fi
+# Decrypt the credentials we added to the repo using the key we added with the Travis command line tool
+# If the SDK is not already cached, download it and unpack it
+- if [ ! -d ${HOME}/google-cloud-sdk ]; then echo 'theifexecuted'; curl https://sdk.cloud.google.com | bash;
+    fi
+- tar -xzf cert.tar.gz
+- mkdir -p lib
+# Here we use the decrypted service account credentials to authenticate the command line tool
+- gcloud auth activate-service-account --key-file ./cert/service_account.json
+install:
+# Set the correct project to deploy to
+- gcloud config set project cool-benefit-185923
+- pip install -r requirements.txt
+- pip install -t lib flask_restplus
+script:
+# Run unit test
+# [START deploy]
+# Deploy
+- gcloud -q app deploy app.yaml --promote
+# Run end test
+# [END deploy]
+
