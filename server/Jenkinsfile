@@ -1,16 +1,48 @@
 pipeline {
-    agent { dockerfile { dir "server" } }
-    stages {
-      stage('Test') {
-        steps {
-          withCredentials([file(credentialsId: 'hy-flask', variable: 'FLASK_KEY'),
-                           file(credentialsId: 'hy-gcp', variable: 'GCP_KEY')]) {
+  agent none
+  stages {
+    stage('Test') {
+      agent {
+        dockerfile {
+            filename "Dockerfile"
+            dir "server"
+        }
+      }
+      steps {
+        withCredentials([file(credentialsId: 'hy-flask', variable: 'FLASK_KEY'),
+                         file(credentialsId: 'hy-gcp', variable: 'GCP_KEY')]) {
+        sh "cp \$FLASK_KEY \$PWD/server/cert"
+        sh "cp \$GCP_KEY \$PWD/server/cert"
+        sh 'python --version'
+        sh 'python -m pytest'
+        }
+      }
+    }
+    stage('Build') {
+      agent any
+      steps {
+        dir("server") {
+          sh "docker build . --tag=hanyang-chatbot"
+        }
+      }
+    }
+    stage('Deploy') {
+      agent {
+        docker {
+          image "hanyang-chatbot"
+          args "-v \$WORKSPACE/server:/app --name hanyang-chatbot --network mhlee"
+        }
+      }
+      steps {
+        withCredentials([file(credentialsId: 'hy-flask', variable: 'FLASK_KEY'),
+                         file(credentialsId: 'hy-gcp', variable: 'GCP_KEY')]) {
           sh "cp \$FLASK_KEY \$PWD/server/cert"
           sh "cp \$GCP_KEY \$PWD/server/cert"
-          sh 'python --version'
-          sh 'python -m pytest'
+          dir("server") {
+            sh "python app.py"
           }
         }
       }
     }
+  }
 }
