@@ -43,20 +43,17 @@ class Edit(Resource):
         data = []
         for doc in documents:
             _data = doc._data
+            create_time = None
+            if _data.get("create_time"):
+                create_time = str(datetime.fromtimestamp(_data["create_time"], tz=KST))
             data.append(
                 {
                     "id": doc.id,
                     "userInput": _data["text"],
                     "answer": _data.get("answer"),
-                    "create_time": str(
-                        datetime.fromtimestamp(_data["create_time"], tz=KST)
-                    ),
+                    "create_time": create_time,
                 }
             )
 
         count = len(data)
-        if not offset or not limit:
-            pass
-        else:
-            data = data[offset : offset + limit]
-        return {"count": count, "data": data,}, 200
+        return {"count": count, "data": data}, 200

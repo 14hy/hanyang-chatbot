@@ -1,6 +1,12 @@
-from flask_jwt_simple import create_jwt, jwt_required, get_jwt_identity
-from flask_restplus import Resource, Namespace, reqparse
 import hashlib
+
+from flask_jwt_simple import (
+    create_jwt,
+    jwt_required,
+    get_jwt,
+)
+from flask_restplus import Resource, Namespace, reqparse
+
 from utils import Config, logger
 
 ns_admin_login = Namespace("admin/login", description="로그인")
@@ -38,23 +44,13 @@ class Login(Resource):
         if not _validate(args):
             return {}, 401
 
-        ret = {"jwt": create_jwt(identity=args["username"])}
+        jwt_token = create_jwt(identity=args["username"])
+        ret = {"jwt": jwt_token}
         return ret, 200
 
     @ns_admin_login.doc(
-        "로그인 테스트",
-        params={"username": "username", "password": "password"},
-        parser=parser,
+        "로그인 테스트", parser=parser,
     )
     @jwt_required
     def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument("username", type=str, help="username")
-        parser.add_argument("password", type=str, help="password")
-        args = parser.parse_args(strict=True)
-
-        def _validate_args(args):
-            pass
-
-        _validate_args(args)
-        return {"username": get_jwt_identity()}, 200
+        return {"username": get_jwt()}, 200

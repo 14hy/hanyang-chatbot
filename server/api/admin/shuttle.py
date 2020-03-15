@@ -1,10 +1,7 @@
-import json
-
 from flask_jwt_simple import jwt_required
 from flask_restplus import Resource, Namespace, reqparse
 
 from engine.services.shuttle import ShuttleBus
-from utils import *
 
 ns_admin_shuttle = Namespace("admin/shuttle", description="셔틀버스 조작")
 
@@ -35,8 +32,8 @@ class Edit(Resource):
         season = args.get("season")
         bus = args.get("bus")
         weekend = args.get("weekend")
-        table = ShuttleBus.get_table(season, bus, weekend), 200
-        return {"data": table}
+        table = ShuttleBus.get_table(season, bus, weekend)
+        return {"data": table}, 200
 
     @ns_admin_shuttle.doc(
         "셔틀버스 조작",

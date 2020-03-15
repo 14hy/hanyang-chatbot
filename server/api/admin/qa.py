@@ -46,10 +46,6 @@ class QA(Resource):
             )
 
         count = len(data)
-        if not offset or not limit:
-            pass
-        else:
-            data = data[offset : offset + limit]
         return {
             "count": count,
             "data": data,
@@ -81,7 +77,8 @@ class QA(Resource):
             201,
         )
 
-    @ns_admin_add.doc("질문을 삭제 합니다.", params={"doc_id": "id"})
+    @ns_admin_add.doc("질문을 삭제 합니다.", params={"doc_id": "id"}, parser=parser)
+    @jwt_required
     def delete(self):
         parser = reqparse.RequestParser()
         parser.add_argument("doc_id", type=str, help="id", required=True)
