@@ -1,5 +1,5 @@
 from flask_jwt_simple import jwt_required
-from flask_restplus import Resource, Namespace, reqparse
+from flask_restx import Resource, Namespace, reqparse
 
 from engine.services.shuttle import ShuttleBus
 

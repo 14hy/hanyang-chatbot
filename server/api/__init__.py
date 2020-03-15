@@ -1,4 +1,4 @@
-from flask_restplus import Api
+from flask_restx import Api
 
 from api.admin.login import ns_admin_login
 from api.admin.qa import ns_admin_add
@@ -13,8 +13,6 @@ api = Api(
     version=Config.VERSION,
     title=Config.TITLE,
     description=Config.DESC,
-    doc=Config.APPLICATION_ROOT,
-    prefix=Config.APPLICATION_ROOT,
 )
 
 api.add_namespace(ns)
