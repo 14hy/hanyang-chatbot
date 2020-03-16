@@ -1,7 +1,7 @@
 from flask_jwt_simple import jwt_required
 from flask_restx import Resource, Namespace, reqparse
 
-from engine.services.shuttle import ShuttleBus
+from engine.services.shuttle import ShuttleBus, to_str, from_str
 
 ns_admin_shuttle = Namespace("admin/shuttle", description="셔틀버스 조작")
 
@@ -17,6 +17,24 @@ parser.add_argument(
 
 @ns_admin_shuttle.route("/edit")
 class Edit(Resource):
+
+    @staticmethod
+    def to_ret(data):
+
+        ret = []
+        for each in data or []:
+            if len(each) == 5:
+                ret.append(to_str(each))
+            elif len(each) == 3:
+                _ret = []
+                for x in each[:2]:
+                    _ret.extend(from_str(x))
+                _ret.append(each[2])
+                ret.append(_ret)
+            else:
+                raise Exception
+        return ret
+
     @ns_admin_shuttle.doc(
         "셔틀버스 조작",
         params={"season": "학기중, 계절, 방학", "bus": "순환노선, 한대앞, 예술인", "weekend": "월금, 휴일"},
@@ -33,6 +51,8 @@ class Edit(Resource):
         bus = args.get("bus")
         weekend = args.get("weekend")
         table = ShuttleBus.get_table(season, bus, weekend)
+
+        table = Edit.to_ret(table)
         return {"data": table}, 200
 
     @ns_admin_shuttle.doc(
@@ -59,4 +79,7 @@ class Edit(Resource):
         weekend = args.get("weekend")
         data = args.get("data")
 
-        return {"updated": ShuttleBus.set_recipe(data, season, bus, weekend)}
+        data = Edit.to_ret(data)
+        updated = ShuttleBus.set_recipe(data, season, bus, weekend)
+        updated = Edit.to_ret(updated)
+        return {"updated": updated}

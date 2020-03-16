@@ -22,7 +22,7 @@ class Config(object):
     SERVICE_ACCOUNT = f"{BASE_DIR}/cert/service_account.json"
 
     # paths
-    SHUTTLE_DIR = "shuttle_files"
+    SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
 
 
 class DevConfig(Config):
@@ -38,9 +38,6 @@ class DevConfig(Config):
     DESC = ""
     SECRET_KEY = open(f"{BASE_DIR}/cert/secret_key", mode="r").readline()
     JWT_SECRET_KEY = SECRET_KEY
-
-    # paths
-    SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
 
     # login
     LOGIN_TOKEN = "baf06612f9fc2e34694ca1b4254e4a8f368ea6c80f0f901743062a3a482b17ff"
@@ -60,14 +57,6 @@ class ProdConfig(Config):
     SECRET_KEY = open(f"{BASE_DIR}/cert/secret_key", mode="r").readline()
     JWT_SECRET_KEY = SECRET_KEY
 
-    # paths
-    SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
-
     # login
     LOGIN_TOKEN = "4373671fc1e3dd6517f264c30e70e904016f668b422b210f7083453eec1b722d"
     JWT_EXPIRES = datetime.timedelta(hours=1)
-
-
-if __name__ == "__main__":
-    print(BASE_DIR)
-    print(Config.SECRET_KEY)

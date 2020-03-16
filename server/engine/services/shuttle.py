@@ -37,6 +37,25 @@ def _load_recipe(target):
     return recipe
 
 
+def to_str(x):
+    """
+    :param x: [hour, minute, hour, minute, term]
+    :return: start, end, term
+    %HH:%MM
+    """
+    # [8, 50, 79, 50, 5]
+    dt = datetime.now()
+    start = datetime.strftime(datetime(dt.year, dt.month, dt.day, hour=x[0], minute=x[1]), "%H:%M")
+    end = datetime.strftime(datetime(dt.year, dt.month, dt.day, hour=x[2], minute=x[3]), "%H:%M")
+    return start, end, x[4]
+
+
+def from_str(x):
+    dt = datetime.now()
+    dt = datetime(dt.year, dt.month, dt.day, hour=int(x.split(':')[0]), minute=int(x.split(':')[1]))
+    return int(dt.hour), int(dt.minute)
+
+
 class ShuttleBus(object):
     """
     # 정류장의 종류
@@ -97,7 +116,7 @@ class ShuttleBus(object):
         recipe[f"{season}_{weekend}_{bus}"] = data
 
         with open(
-            f"{Config.SHUTTLE_DIR}/{template}.yml", mode="w", encoding="utf-8"
+                f"{Config.SHUTTLE_DIR}/{template}.yml", mode="w", encoding="utf-8"
         ) as f:
             yaml.dump(recipe, stream=f)
 

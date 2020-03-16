@@ -37,3 +37,15 @@ def test_shuttle_bus_set_table():
     data = [[8, 50, 21, 50, None]]
     ret = sb.set_recipe([[8, 50, 21, 50, None]], "방학", "순환노선", "휴일", template="test")
     assert ret == data
+
+
+def test_shuttle_convert():
+    x = [7, 50, 8, 50, None]
+    start, end, term = to_str(x)
+    assert (start, end, term) == ('07:50', '08:50', None)
+    assert from_str(start) == (7, 50)
+
+    x = [0, 30, 19, 50, 5]
+    start, end, term = to_str(x)
+    assert (start, end, term) == ('00:30', '19:50', 5)
+    assert from_str('0:30') == (0, 30)

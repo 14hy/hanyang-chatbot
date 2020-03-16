@@ -1,6 +1,7 @@
 import pytest
 from dateutil.parser import parse
 from flask.testing import FlaskClient
+from api.admin.shuttle import Edit
 
 from app import app
 from config import DevConfig as Config
@@ -61,6 +62,10 @@ def test_admin_shuttle_edit(client: FlaskClient, jwt_token: str):
                      headers={'Authorization': f'Bearer {jwt_token}'})
     assert res.status_code == 200
     assert res.json.get('data') is not None
+    assert len(res.json.get('data')[0]) == 3
+
+    ret = Edit.to_ret([['7:50', '8:50', 5]])
+    assert ret == [[7, 50, 8, 50, 5]]
 
 
 def test_qa_get(client: FlaskClient, jwt_token: str):
