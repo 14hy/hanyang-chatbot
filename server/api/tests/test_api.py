@@ -1,6 +1,12 @@
+from unittest import TestCase
+from unittest.mock import Mock, patch
+
 import pytest
 from dateutil.parser import parse
 from flask.testing import FlaskClient
+from pytest_mock import MockFixture
+
+import engine
 from api.admin.shuttle import Edit
 
 from app import app
@@ -57,15 +63,21 @@ def test_service_shuttle_get(client: FlaskClient):
     assert client.get('/service/shuttle/').status_code == 200
 
 
-def test_admin_shuttle_edit(client: FlaskClient, jwt_token: str):
+def test_admin_shuttle_edit(mocker: MockFixture, client: FlaskClient, jwt_token: str):
     res = client.get('/admin/shuttle/edit', query_string=[('season', '학기중'), ('bus', '순환노선'), ('weekend', '월금')],
                      headers={'Authorization': f'Bearer {jwt_token}'})
     assert res.status_code == 200
     assert res.json.get('data') is not None
     assert len(res.json.get('data')[0]) == 3
 
-    ret = Edit.to_ret([['7:50', '8:50', 5]])
-    assert ret == [[7, 50, 8, 50, 5]]
+    mocker.patch('engine.services.shuttle.ShuttleBus.set_recipe')
+    engine.services.shuttle.ShuttleBus.set_recipe.return_value = [[7, 50, 8, 50, 5]]
+
+    data = [['7:50', '8:50', 5]]
+    res = client.post('/admin/shuttle/edit',
+                      query_string=[('data', data), ('season', '학기중'), ('bus', '순환노선'), ('weekend', '월금')],
+                      headers={'Authorization': f'Bearer {jwt_token}'})
+    assert res.status_code == 201
 
 
 def test_qa_get(client: FlaskClient, jwt_token: str):

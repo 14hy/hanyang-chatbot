@@ -12,3 +12,4 @@ gunicorn
 flask-jwt-simple
 pytest
 dateutils
+pytest-mock
