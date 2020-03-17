@@ -2,7 +2,7 @@ from engine.services.shuttle import *
 
 
 def test_shuttle_bus_get():
-    sb = ShuttleBus("template")
+    sb = ShuttleBus()
     res = sb.get(season=Season.학기중, weekend=WeekEnd.휴일, hours=20, minutes=46, seconds=0)
     assert res["station_cycle"] == {"minutes": 14, "seconds": 0, "status": True}
     sb = ShuttleBus("test")
@@ -24,28 +24,28 @@ def test_shuttle_bus_get():
 
 
 def test_shuttle_bus_get_table():
-    sb = ShuttleBus()
-    table = sb.get_table("학기중", "순환노선", "월금", template="test")
+    sb = ShuttleBus("test")
+    table = sb.get_table("학기중", "순환노선", "월금")
     assert table[0] == [3, 0, 23, 0, None]
 
 
 def test_shuttle_bus_set_table():
-    sb = ShuttleBus()
+    sb = ShuttleBus("test")
     data = [[8, 50, 21, 50, 30]]
-    ret = sb.set_recipe([[8, 50, 21, 50, 30]], "방학", "순환노선", "휴일", template="test")
+    ret = sb.set_recipe([[8, 50, 21, 50, 30]], "방학", "순환노선", "휴일")
     assert ret == data
     data = [[8, 50, 21, 50, None]]
-    ret = sb.set_recipe([[8, 50, 21, 50, None]], "방학", "순환노선", "휴일", template="test")
+    ret = sb.set_recipe([[8, 50, 21, 50, None]], "방학", "순환노선", "휴일")
     assert ret == data
 
 
 def test_shuttle_convert():
     x = [7, 50, 8, 50, None]
     start, end, term = to_str(x)
-    assert (start, end, term) == ('07:50', '08:50', None)
+    assert (start, end, term) == ("07:50", "08:50", None)
     assert from_str(start) == (7, 50)
 
     x = [0, 30, 19, 50, 5]
     start, end, term = to_str(x)
-    assert (start, end, term) == ('00:30', '19:50', 5)
-    assert from_str('0:30') == (0, 30)
+    assert (start, end, term) == ("00:30", "19:50", 5)
+    assert from_str("0:30") == (0, 30)

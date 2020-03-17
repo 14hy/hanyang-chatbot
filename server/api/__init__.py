@@ -9,11 +9,7 @@ from api.services.food import ns_food
 from api.services.shuttle import ns_shuttle
 from utils import Config
 
-api = Api(
-    version=Config.VERSION,
-    title=Config.TITLE,
-    description=Config.DESC,
-)
+api = Api(version=Config.VERSION, title=Config.TITLE, description=Config.DESC,)
 
 api.add_namespace(ns)
 api.add_namespace(ns_shuttle)

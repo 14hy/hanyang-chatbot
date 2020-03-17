@@ -1,5 +1,4 @@
-from unittest import TestCase
-from unittest.mock import Mock, patch
+import json
 
 import pytest
 from dateutil.parser import parse
@@ -7,8 +6,6 @@ from flask.testing import FlaskClient
 from pytest_mock import MockFixture
 
 import engine
-from api.admin.shuttle import Edit
-
 from app import app
 from config import DevConfig as Config
 
@@ -26,8 +23,7 @@ def client():
 @pytest.fixture
 def jwt_token(client: FlaskClient):
     res = client.post(
-        "/admin/login/",
-        query_string=[("username", "dev"), ("password", "dev")],
+        "/admin/login/", query_string=[("username", "dev"), ("password", "dev")],
     )
     yield res.json["jwt"]
 
@@ -74,6 +70,7 @@ def test_admin_shuttle_edit(mocker: MockFixture, client: FlaskClient, jwt_token:
     engine.services.shuttle.ShuttleBus.set_recipe.return_value = [[7, 50, 8, 50, 5]]
 
     data = [['7:50', '8:50', 5]]
+    data = json.dumps(data)
     res = client.post('/admin/shuttle/edit',
                       query_string=[('data', data), ('season', '학기중'), ('bus', '순환노선'), ('weekend', '월금')],
                       headers={'Authorization': f'Bearer {jwt_token}'})

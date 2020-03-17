@@ -12,6 +12,11 @@ try:
 except ImportError:
     from yaml import Loader, Dumper
 
+if is_dev():
+    TEMPLATE = "dev"
+else:
+    TEMPLATE = "template"
+
 
 class Season(enum.Enum):
     학기중 = 0
@@ -45,14 +50,24 @@ def to_str(x):
     """
     # [8, 50, 79, 50, 5]
     dt = datetime.now()
-    start = datetime.strftime(datetime(dt.year, dt.month, dt.day, hour=x[0], minute=x[1]), "%H:%M")
-    end = datetime.strftime(datetime(dt.year, dt.month, dt.day, hour=x[2], minute=x[3]), "%H:%M")
+    start = datetime.strftime(
+        datetime(dt.year, dt.month, dt.day, hour=x[0], minute=x[1]), "%H:%M"
+    )
+    end = datetime.strftime(
+        datetime(dt.year, dt.month, dt.day, hour=x[2], minute=x[3]), "%H:%M"
+    )
     return start, end, x[4]
 
 
 def from_str(x):
     dt = datetime.now()
-    dt = datetime(dt.year, dt.month, dt.day, hour=int(x.split(':')[0]), minute=int(x.split(':')[1]))
+    dt = datetime(
+        dt.year,
+        dt.month,
+        dt.day,
+        hour=int(x.split(":")[0]),
+        minute=int(x.split(":")[1]),
+    )
     return int(dt.hour), int(dt.minute)
 
 
@@ -78,9 +93,12 @@ class ShuttleBus(object):
 
     # 학기 중, 계절학기 첫 차는 순환 운행
     # 시작시간, 끝나는 시간, 시즌, 휴일, 노선에 따라 차등 적용
-
     def __init__(self, template=None):
-        self.recipe = _load_recipe(template or "template")
+        self.template = template or TEMPLATE
+
+    @property
+    def recipe(self):
+        return _load_recipe(self.template)
 
     def get_current(self):
         def _check_season(_):
@@ -109,26 +127,24 @@ class ShuttleBus(object):
         table = self._make_table(season.value, weekend.value)
         return self._get(table, timedelta(**kwargs))
 
-    @staticmethod
-    def set_recipe(data, season, bus, weekend, *, template="template"):
+    def set_recipe(self, data, season, bus, weekend):
         assert isinstance(data, list)
-        recipe = _load_recipe(template)
+        recipe = _load_recipe(self.template)
         recipe[f"{season}_{weekend}_{bus}"] = data
 
         with open(
-                f"{Config.SHUTTLE_DIR}/{template}.yml", mode="w", encoding="utf-8"
+                f"{Config.SHUTTLE_DIR}/{self.template}.yml", mode="w", encoding="utf-8"
         ) as f:
             yaml.dump(recipe, stream=f)
 
-        recipe = _load_recipe(template)
+        recipe = _load_recipe(self.template)
         return recipe[f"{season}_{weekend}_{bus}"]
 
-    @staticmethod
-    def get_table(season, bus, weekend, *, template="template"):
+    def get_table(self, season, bus, weekend):
         p = Path(Config.SHUTTLE_DIR)
 
         tables = []
-        for target in p.glob(f"{template}.yml"):
+        for target in p.glob(f"{self.template}.yml"):
             tables.append(_load_recipe("".join(str(target.name).split(".")[:-1])))
 
         table = tables[0]  # don't use template feature

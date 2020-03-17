@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask_restx import Resource, Namespace
 
 from db.connect import client
@@ -17,6 +19,7 @@ class Index(Resource):
         ui = UserInput(text=text)
         ret: dict = get_response(ui)
         ui.answer = ret
+        ui.create_time = datetime.now().timestamp()
         user_input.add(ui.to_dict())
 
         return {"answer": ret or "잘 모르겠다냥.."}, 200

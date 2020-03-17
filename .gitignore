@@ -6,3 +6,4 @@ secret_key
 .DS_Store
 __pycache__
 cert*
+template.yml

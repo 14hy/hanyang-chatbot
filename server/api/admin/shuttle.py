@@ -1,7 +1,8 @@
+import json
+
 from flask_jwt_simple import jwt_required
 from flask_restx import Resource, Namespace, reqparse
 
-import ast
 from engine.services.shuttle import ShuttleBus, to_str, from_str
 
 ns_admin_shuttle = Namespace("admin/shuttle", description="셔틀버스 조작")
@@ -18,7 +19,6 @@ parser.add_argument(
 
 @ns_admin_shuttle.route("/edit")
 class Edit(Resource):
-
     @staticmethod
     def to_ret(data):
 
@@ -51,7 +51,8 @@ class Edit(Resource):
         season = args.get("season")
         bus = args.get("bus")
         weekend = args.get("weekend")
-        table = ShuttleBus.get_table(season, bus, weekend)
+        sb = ShuttleBus()
+        table = sb.get_table(season, bus, weekend)
 
         table = Edit.to_ret(table)
         return {"data": table}, 200
@@ -79,9 +80,10 @@ class Edit(Resource):
         bus = args.get("bus")
         weekend = args.get("weekend")
         data = args.get("data")
-        data = ast.literal_eval(data)
+        data = json.loads(data)
 
         data = Edit.to_ret(data)
-        updated = ShuttleBus.set_recipe(data, season, bus, weekend)
+        sb = ShuttleBus()
+        updated = sb.set_recipe(data, season, bus, weekend)
         updated = Edit.to_ret(updated)
         return {"updated": updated}, 201

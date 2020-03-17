@@ -20,5 +20,8 @@ api.init_app(app)
 
 if __name__ == "__main__":
     logger.info(f"running app in {'Dev' if is_dev() else 'Production'}")
-    context = (f'{Config.BASE_DIR}/cert/mhlee.engineer.crt', f'{Config.BASE_DIR}/cert/mhlee.engineer.key')
+    context = (
+        f"{Config.BASE_DIR}/cert/mhlee.engineer.crt",
+        f"{Config.BASE_DIR}/cert/mhlee.engineer.key",
+    )
     app.run(host=Config.HOST, port=Config.PORT, debug=Config.DEBUG, ssl_context=context)

@@ -1,7 +1,6 @@
 from engine.services.shuttle import ShuttleBus
 from flask_restx import Resource, Namespace, reqparse, fields
 
-shuttle_bus = ShuttleBus()
 ns_shuttle = Namespace("service/shuttle", description="Service/Shuttle")
 
 station_list = [
@@ -40,6 +39,7 @@ class Bus(Resource):
         parser.add_argument("seconds", type=int, required=False)
         parser.add_argument("now", type=fields.boolean, required=False, default=True)
         args = parser.parse_args(strict=True)
+        shuttle_bus = ShuttleBus()
 
         if args["now"]:
             return shuttle_bus.get_current()

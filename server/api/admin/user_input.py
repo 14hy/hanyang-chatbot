@@ -45,7 +45,9 @@ class Edit(Resource):
             _data = doc._data
             create_time = None
             if _data.get("create_time"):
-                create_time = str(datetime.fromtimestamp(_data["create_time"], tz=KST))
+                create_time = datetime.fromtimestamp(
+                    _data["create_time"], tz=KST
+                ).strftime("%Y-%m-%d %H:%M:%S")
             data.append(
                 {
                     "id": doc.id,

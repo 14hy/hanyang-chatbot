@@ -1,9 +1,6 @@
-from datetime import datetime
-
 from google.cloud.firestore_v1 import DocumentSnapshot, CollectionReference
 
 from db.connect import client
-from utils import KST
 
 collection: CollectionReference = client.collection("user_input")
 for each in collection.stream():
