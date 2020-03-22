@@ -1,5 +1,5 @@
-from engine.services.talk import _calc_jaacard
+from engine.services.talk import _get_score
 
 
 def test__calc_jaccard():
-    assert _calc_jaacard("안녕!", "안녕!") == 3
+    assert _get_score("안녕!", "안녕!") == 3

@@ -13,3 +13,6 @@ flask-jwt-simple
 pytest
 dateutils
 pytest-mock
+pypandoc
+konlpy
+pymongo

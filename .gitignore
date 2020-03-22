@@ -7,3 +7,4 @@ secret_key
 __pycache__
 cert*
 template.yml
+*.ipynb

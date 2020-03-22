@@ -24,6 +24,14 @@ class Config(object):
     # paths
     SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
 
+    # mongo
+    MONGO_HOST = 'host.docker.internal'
+    MONGO_PORT = 27019
+
+    # answer
+    QA_THRESHOLD = 1.
+    MAX_ANSWER_LENGTH = 80
+
 
 class DevConfig(Config):
     LOG_LEVEL = "DEBUG"
@@ -60,3 +68,6 @@ class ProdConfig(Config):
     # login
     LOGIN_TOKEN = "4373671fc1e3dd6517f264c30e70e904016f668b422b210f7083453eec1b722d"
     JWT_EXPIRES = datetime.timedelta(hours=1)
+
+    # mongo
+    MONGO_PORT = 27017
