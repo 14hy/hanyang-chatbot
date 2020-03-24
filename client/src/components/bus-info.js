@@ -354,7 +354,8 @@ bus-info .time-value {
 .circle:after {
     content: '';
     position: relative;
-    animation: move 5s cubic-bezier(0.57, -0.03, 0.2, 1) infinite;
+    /* animation: move 5s cubic-bezier(0.57, -0.03, 0.2, 1) infinite; */
+    transition: all 200ms ease;
     z-index: 10;
     background-image: url('img/bus-effect.png');
     background-size: 20px 20px;
@@ -363,6 +364,7 @@ bus-info .time-value {
     display: inline-block;
     top: 7px;
     left: calc(-10vw - 15px);
+    filter: hue-rotate(45deg);
 }
 
 @keyframes move {
