@@ -55,7 +55,7 @@
         <splash src="www/img/LaunchImage-568h@2x~iphone_640x1136.png" width="640" height="1136"/>
         <splash src="www/img/LaunchImage-750@2x~iphone6-portrait_750x1334.png" width="750" height="1334"/>
         <splash src="www/img/LaunchImage-1242@3x~iphone6s-portrait_1242x2208.png" width="1242" height="2208"/>
-        <splash src="LaunchImage-1242@3x~iphone6s-landscape_2208x1242.png" width="2208" height="1242"/>
+        <splash src="www/img/LaunchImage-1242@3x~iphone6s-landscape_2208x1242.png" width="2208" height="1242"/>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
