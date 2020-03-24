@@ -25,8 +25,8 @@ class Config(object):
     SHUTTLE_DIR = f"{BASE_DIR}/shuttle_files"
 
     # mongo
-    MONGO_HOST = 'host.docker.internal'
-    MONGO_PORT = 27019
+    MONGO_HOST = 'mongo'
+    MONGO_PORT = 27017
 
     # answer
     QA_THRESHOLD = 1.
@@ -51,6 +51,7 @@ class DevConfig(Config):
     LOGIN_TOKEN = "baf06612f9fc2e34694ca1b4254e4a8f368ea6c80f0f901743062a3a482b17ff"
     JWT_EXPIRES = datetime.timedelta(days=365)
 
+    MONGO_HOST = 'host.docker.internal'
 
 class ProdConfig(Config):
     LOG_LEVEL = "INFO"
