@@ -60,7 +60,7 @@ class FoodList extends LitElement {
             <p class="price">특식 ${menu[`price`]}원</p>
             `)}            
             `
-			: html``
+			: html``,
 	)}
         `
 	}

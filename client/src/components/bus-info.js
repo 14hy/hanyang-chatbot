@@ -67,7 +67,7 @@ class BusInfo extends LitElement {
 	// eslint-disable-next-line complexity
 	async getBusTime() {        
 		let res = await loadXhr({
-			url: `https://hanyang-chatbot-dot-cool-benefit-185923.appspot.com/service/shuttle/`,
+			url: `https://mhlee.engineer:5000/service/shuttle/`,
 			method: `GET`,
 		})
 
@@ -341,19 +341,20 @@ bus-info .time-value {
     font-size: 8px;
     color: #FFBD02;
     z-index: 100;
+    margin-top: 3px;
 }
 
 .circle {
     position: relative;
     top: -7px;
     left: 10px;
-    font-size: 6px;
+    font-size: 8px;
 }
 
 .circle:after {
     content: '';
     position: relative;
-    /* animation: move 5s ease-in-out infinite; */
+    animation: move 5s cubic-bezier(0.57, -0.03, 0.2, 1) infinite;
     z-index: 10;
     background-image: url('img/bus-effect.png');
     background-size: 20px 20px;
@@ -367,14 +368,12 @@ bus-info .time-value {
 @keyframes move {
     0% {
         /* left: calc(-10vw - 15px); */
-        top: 7px;
-        opacity: 0;
+        top: 7px;        
     }
 
     100% {
         top: 7px;
-        left: -12px;
-        opacity: 1;
+        left: -18px;
     }
 }
 </style>
