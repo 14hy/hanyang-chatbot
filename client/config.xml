@@ -19,6 +19,7 @@
     </platform>
     <platform name="ios">
         <splash src="www/img/splash.png" />
+        <icon src="www/img/icon-20.png" width="20" height="20" />
         <!-- iOS 8.0+ -->
         <!-- iPhone 6 Plus  -->
         <icon src="www/img/icon-180.png" width="180" height="180" />
@@ -33,6 +34,7 @@
         <!-- Spotlight Icon -->
         <icon src="www/img/icon-40.png" width="40" height="40" />
         <icon src="www/img/icon-80.png" width="80" height="80" />
+        <icon src="www/img/icon-87.png" width="87" height="87" />
         <!-- iPhone / iPod Touch -->
         <icon src="www/img/icon-57.png" width="57" height="57" />
         <icon src="www/img/icon-114.png" width="114" height="114" />
@@ -45,12 +47,17 @@
         <!-- iPad Spotlight and Settings Icon -->
         <icon src="www/img/icon-50.png" width="50" height="50" />
         <icon src="www/img/icon-100.png" width="100" height="100" />
+        <icon src="www/img/icon-167.png" width="167" height="167" />
+        <icon src="www/img/icon-1024.png" width="1024" height="1024" />
+
         <!-- images are determined by width and height. The following are supported -->
         <splash src="www/img/LaunchImage~iphone-320x480.png" width="320" height="480"/>
         <splash src="www/img/LaunchImage~iphone_640x960.png" width="640" height="960"/>
         <splash src="www/img/LaunchImage-Portrait~ipad_768x1024.png" width="768" height="1024"/>
         <splash src="www/img/LaunchImage-Portrait@2x~ipad_1536x2048.png" width="1536" height="2048"/>
         <splash src="www/img/LaunchImage-Landscape~ipad_1024x768.png" width="1024" height="768"/>
+        <splash src="www/img/LaunchImage-1125@3x~iphoneX-portrait_1125x2436.png" width="1125" height="2436"/>
+        <splash src="www/img/LaunchImage-2436@3x~iphoneX-landscape_2436x1125.png" width="2436" height="1125"/>
         <splash src="www/img/LaunchImage-Landscape@2x~ipad_2048x1536.png" width="2048" height="1536"/>
         <splash src="www/img/LaunchImage-568h@2x~iphone_640x1136.png" width="640" height="1136"/>
         <splash src="www/img/LaunchImage-750@2x~iphone6-portrait_750x1334.png" width="750" height="1334"/>
