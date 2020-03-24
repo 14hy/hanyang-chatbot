@@ -1,0 +1,35 @@
+version: '3.7'
+
+networks:
+  hanyang-chatbot:
+services:
+  flask:
+    restart: always
+    build: '.'
+    ports:
+      - '5000:5000'
+    volumes:
+      - type: bind
+        source: $PWD
+        target: /app
+    environment:
+      env: "production"
+    networks:
+      - hanyang-chatbot
+    entrypoint: ['python', 'app.py']
+    depends_on:
+      - mongo
+  mongo:
+    restart: always
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - type: bind
+        source: ./mongo/data
+        target: /data/db
+      - type: bind
+        source: ./mongo/namu_wiki
+        target: /dataset
+    networks:
+      - hanyang-chatbot

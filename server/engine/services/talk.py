@@ -4,6 +4,7 @@ from collections import OrderedDict
 
 import pypandoc
 from konlpy.tag import Mecab
+import pymongo
 from pymongo import MongoClient
 
 from db.connect import client
@@ -17,6 +18,8 @@ mecab = Mecab()
 # Mongo
 mongo_client = MongoClient(host=Config.MONGO_HOST, port=Config.MONGO_PORT)
 namu_wiki = mongo_client['wiki']['namu']
+if not is_dev():
+    namu_wiki.create_index([('title', pymongo.TEXT)])
 
 # Firestore
 collection_qna = client.collection("qna")
