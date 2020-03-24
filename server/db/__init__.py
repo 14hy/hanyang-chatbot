@@ -1,1 +1,1 @@
-from .qna import qna
+from .models import QA

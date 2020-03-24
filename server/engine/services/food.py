@@ -1,19 +1,22 @@
-import requests
 from enum import Enum
-from lxml.html import fromstring
+
+import requests
 from lxml.cssselect import CSSSelector
+from lxml.html import fromstring
+
 from utils import *
 
 
 class Restaurants(Enum):
-    교직원식당 = '11'
-    학생식당 = '12'
-    창의인재원식당 = '13'
-    푸드코트 = '14'
-    창업보육센터 = '15'
+    교직원식당 = "11"
+    학생식당 = "12"
+    창의인재원식당 = "13"
+    푸드코트 = "14"
+    창업보육센터 = "15"
 
 
-def get_recipe(restaurant, url='https://www.hanyang.ac.kr/web/www/re'):
+@log_time
+def get_recipe(restaurant: Restaurants, url="https://www.hanyang.ac.kr/web/www/re"):
     """식단 받아오기
 
     :return:
@@ -29,19 +32,19 @@ def get_recipe(restaurant, url='https://www.hanyang.ac.kr/web/www/re'):
     }
     """
     ret = {}
-    ret['restaurant'] = restaurant.name
+    ret["restaurant"] = restaurant.name
 
-    inboxes = CSSSelector('div.in-box')
-    h4 = CSSSelector('h4')  # 조식, 중식, 석식
-    h3 = CSSSelector('h3')  # menu
-    li = CSSSelector('li')
-    price = CSSSelector('p.price')
+    inboxes = CSSSelector("div.in-box")
+    h4 = CSSSelector("h4")  # 조식, 중식, 석식
+    h3 = CSSSelector("h3")  # menu
+    li = CSSSelector("li")
+    price = CSSSelector("p.price")
     # get
     try:
-        res = requests.get(f'{url}{restaurant.value}')
+        res = requests.get(f"{url}{restaurant.value}")
     except requests.exceptions.RequestException as e:
         logger.error(e)
-        ret['restaurant'] = '-1'
+        ret["restaurant"] = "-1"
         return ret
 
     tree = fromstring(res.text)
@@ -49,11 +52,8 @@ def get_recipe(restaurant, url='https://www.hanyang.ac.kr/web/www/re'):
         title = h4(inbox)[0].text_content()
         ret[title] = []
         for l in li(inbox):
-            menu = h3(l)[0].text_content().replace(u'\t', '').replace(u'\r\n', '')
+            menu = h3(l)[0].text_content().replace("\t", "").replace("\r\n", "")
             p = price(l)[0].text_content()
-            ret[title].append({
-                'menu': menu,
-                'price': p
-            })
+            ret[title].append({"menu": menu, "price": p})
 
     return ret

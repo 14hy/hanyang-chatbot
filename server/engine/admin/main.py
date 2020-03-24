@@ -1,13 +1,13 @@
-from db.connect import db
+from db.connect import client
 from db import *
 from engine.preprocessor.clean import clean
 
-collection = db.collection('qna')
+collection = client.collection("qna")
 
 
-def add_qna(question, answer):
+def add_qa(question, answer):
     question = clean(question)
-    answer = qna(question=question, answer=answer)
-    ret = collection.add(answer.to_dict())
+    answer = QA(question=question, answer=answer)
+    ret: QA = collection.add(answer.to_dict())
 
     return ret
