@@ -1,3 +1,0 @@
-runtime: python37
-service: "hanyang-chatbot"
-instance_class: F1

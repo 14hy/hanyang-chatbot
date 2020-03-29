@@ -6,8 +6,6 @@ services:
   flask:
     restart: always
     build: '.'
-    ports:
-      - '5000:5000'
     volumes:
       - type: bind
         source: $PWD
@@ -33,3 +31,16 @@ services:
         target: /dataset
     networks:
       - hanyang-chatbot
+  nginx:
+    restart: always
+    image: nginx:${NGINX_VERSION:-latest}
+    ports:
+      - '5000:443'
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./logs/nginx:/var/log/nginx
+      - ./certs:/etc/certs
+    depends_on:
+      - flask
+    networks:
+      - hanyang-chatbot 
