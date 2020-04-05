@@ -39,7 +39,7 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./logs/nginx:/var/log/nginx
-      - ./certs:/etc/certs
+      - ./cert:/etc/certs
     depends_on:
       - flask
     networks:

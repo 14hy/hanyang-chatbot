@@ -53,6 +53,7 @@ class DevConfig(Config):
 
     MONGO_HOST = 'host.docker.internal'
 
+
 class ProdConfig(Config):
     LOG_LEVEL = "INFO"
 
