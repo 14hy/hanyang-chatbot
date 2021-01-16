@@ -2,13 +2,14 @@ version: '3.7'
 
 networks:
   hanyang-chatbot:
+
 services:
   flask:
     restart: always
     build: '.'
     volumes:
       - type: bind
-        source: $PWD
+        source: ./
         target: /app
     environment:
       env: "production"
