@@ -44,7 +44,7 @@ class Login(Resource):
         if not _validate(args):
             return {}, 401
 
-        jwt_token = create_jwt(identity=args["username"])
+        jwt_token = create_jwt(identity=args.get('username'))
         ret = {"jwt": jwt_token}
         return ret, 200
 

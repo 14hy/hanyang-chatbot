@@ -15,6 +15,8 @@ services:
       env: "production"
     networks:
       - hanyang-chatbot
+    ports:
+      - '5000:5000'
     entrypoint: ['python', 'app.py']
     depends_on:
       - mongo
@@ -35,8 +37,6 @@ services:
   nginx:
     restart: always
     image: nginx:${NGINX_VERSION:-latest}
-    ports:
-      - '5000:443'
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./logs/nginx:/var/log/nginx

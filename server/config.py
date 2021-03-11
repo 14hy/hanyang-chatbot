@@ -68,7 +68,7 @@ class ProdConfig(Config):
     JWT_SECRET_KEY = SECRET_KEY
 
     # login
-    LOGIN_TOKEN = "4373671fc1e3dd6517f264c30e70e904016f668b422b210f7083453eec1b722d"
+    LOGIN_TOKEN = "e6ff64f85060772d6650d3c1ed227fee9191881cb5c60ac2c3890fe35fb89fcb"
     JWT_EXPIRES = datetime.timedelta(hours=1)
 
     # mongo

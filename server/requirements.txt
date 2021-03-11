@@ -1,4 +1,3 @@
-werkzeug
 flask-restx
 flask-cors
 cmake
@@ -10,9 +9,11 @@ cssselect
 pyyaml
 gunicorn
 flask-jwt-simple
+PyJWT==1.7.1
 pytest
 dateutils
 pytest-mock
 pypandoc
 konlpy
 pymongo
+Werkzeug
