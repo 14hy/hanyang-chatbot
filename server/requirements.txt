@@ -9,7 +9,7 @@ cssselect
 pyyaml
 gunicorn
 flask-jwt-simple
-PyJWT==1.7.1
+PyJWT==2.4.0
 pytest
 dateutils
 pytest-mock
