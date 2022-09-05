@@ -29,9 +29,6 @@ services:
       - type: bind
         source: ./mongo/data
         target: /data/db
-      - type: bind
-        source: ./mongo/namu_wiki
-        target: /dataset
     networks:
       - hanyang-chatbot
   nginx:
