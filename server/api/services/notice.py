@@ -23,7 +23,7 @@ DEFAULT_NOTICE = """
 <img src="https://www.hanyang.ac.kr/documents/20182/6049116/20190923-bus3.png"> <br>
 
 
-https://www.hanyang.ac.kr/<br>web/www/shuttle_bus_timetable <br>
+https://www.hanyang.ac.kr/web/www/shuttle_guide <br>
 """
 
 

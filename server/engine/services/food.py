@@ -52,6 +52,8 @@ def get_recipe(restaurant: Restaurants, url="https://www.hanyang.ac.kr/web/www/r
         title = h4(inbox)[0].text_content()
         ret[title] = []
         for l in li(inbox):
+            if len(h3(l)) <= 0:
+                continue
             menu = h3(l)[0].text_content().replace("\t", "").replace("\r\n", "")
             p = price(l)[0].text_content()
             ret[title].append({"menu": menu, "price": p})
