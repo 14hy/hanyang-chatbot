@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.7
 
 LABEL maintainer="mhlee, minhyeok.lee95@gmail.com"
 ENV LANG C.UTF-8
